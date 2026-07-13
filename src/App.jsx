@@ -414,14 +414,6 @@ function HomePage() {
             <div className="section-header">
 
               <h2>🔥 Phim mới cập nhật</h2>
-
-              <button
-                className="see-more"
-                onClick={() => navigate("/movies/new")}
-              >
-                Xem thêm →
-              </button>
-
             </div>
 
             <div className="movie-grid">
@@ -479,14 +471,6 @@ function HomePage() {
             <div className="section-header">
 
               <h2>⭐ Phim nổi bật</h2>
-
-              <button
-                className="see-more"
-                onClick={() => navigate("/movies/featured")}
-              >
-                Xem thêm →
-              </button>
-
             </div>
 
             <div className="movie-grid">
@@ -505,15 +489,7 @@ function HomePage() {
 
             <div className="section-header">
 
-              <h2>💖 Phim BL</h2>
-
-              <button
-                className="see-more"
-                onClick={() => navigate("/movies/featured")}
-              >
-                Xem thêm →
-              </button>
-
+              <h2>💖 Phim BL</h2>             
             </div>
 
             <div className="movie-grid">
@@ -535,13 +511,6 @@ function HomePage() {
 
               <h2>🎬 Phim cổ trang</h2>
 
-              <button
-                className="see-more"
-                onClick={() => navigate("/movies/featured")}
-              >
-                Xem thêm →
-              </button>
-
             </div>
 
             <div className="movie-grid">
@@ -562,14 +531,6 @@ function HomePage() {
           <div className="section-header">
 
             <h2>🏆 Top đánh giá</h2>
-
-            <button
-              className="see-more"
-              onClick={() => navigate("/movies/featured")}
-            >
-              Xem thêm →
-            </button>
-
           </div>
 
           <div className="movie-grid">
