@@ -27,6 +27,10 @@ function HomePage() {
   const [sortByRating, setSortByRating] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [featuredPage, setFeaturedPage] = useState(1);
+  const [blPage, setBlPage] = useState(1);
+  const [costumePage, setCostumePage] = useState(1);
+  const [topPage, setTopPage] = useState(1);
 
   const moviesPerPage = 4;
 
@@ -77,22 +81,55 @@ function HomePage() {
     // ======================
 
     // Phim nổi bật (3 phim đầu)
-    const featuredMovies = filteredMovies.slice(0, 3);
+  const featuredMovies = filteredMovies;
+
+  const featuredCurrent = featuredMovies.slice(
+    (featuredPage - 1) * moviesPerPage,
+    featuredPage * moviesPerPage
+  );
+
+  const featuredTotal = Math.ceil(
+    featuredMovies.length / moviesPerPage
+  );
 
     // Phim BL
-     const blMovies = filteredMovies.filter(
-      (movie) => movie.genre === "BL"
-    );
+      const blMovies = filteredMovies.filter(
+        (movie) => movie.genre === "BL"
+      );
+      const costumeMovies = filteredMovies.filter(
+        (movie) => movie.genre === "Cổ trang"
+      );
+      const topMovies = [...filteredMovies].sort(
+        (a, b) => b.rating - a.rating
+      );
+     const blCurrent = blMovies.slice(
+        (blPage - 1) * moviesPerPage,
+        blPage * moviesPerPage
+      );
+
+      const blTotal = Math.ceil(
+        blMovies.length / moviesPerPage
+      );
 
     // Phim Cổ trang
-    const costumeMovies = filteredMovies.filter(
-      (movie) => movie.genre === "Cổ trang"
-    );
+    const costumeCurrent = costumeMovies.slice(
+    (costumePage - 1) * moviesPerPage,
+    costumePage * moviesPerPage
+  );
+
+  const costumeTotal = Math.ceil(
+    costumeMovies.length / moviesPerPage
+  );
 
     // Top đánh giá
-    const topMovies = [...filteredMovies].sort(
-      (a, b) => b.rating - a.rating
-    );
+    const topCurrent = topMovies.slice(
+  (topPage - 1) * moviesPerPage,
+  topPage * moviesPerPage
+);
+
+const topTotal = Math.ceil(
+  topMovies.length / moviesPerPage
+);
 
     // Tổng số trang
     const totalPages = Math.ceil(filteredMovies.length / moviesPerPage);
@@ -474,7 +511,7 @@ function HomePage() {
             </div>
 
             <div className="movie-grid">
-              {featuredMovies.map((movie) => (
+              {featuredCurrent.map((movie) => (
                 <MovieCard
                   key={movie.id}
                   movie={movie}
@@ -483,6 +520,40 @@ function HomePage() {
             </div>
 
           </section>
+          <div className="pagination">
+
+          <button
+            disabled={featuredPage === 1}
+            onClick={() => setFeaturedPage(featuredPage - 1)}
+          >
+            ❮
+          </button>
+
+          {Array.from(
+            { length: featuredTotal },
+            (_, index) => (
+              <button
+                key={index}
+                className={
+                  featuredPage === index + 1
+                    ? "active-page"
+                    : ""
+                }
+                onClick={() => setFeaturedPage(index + 1)}
+              >
+                {index + 1}
+              </button>
+            )
+          )}
+
+          <button
+            disabled={featuredPage === featuredTotal}
+            onClick={() => setFeaturedPage(featuredPage + 1)}
+          >
+            ❯
+          </button>
+
+        </div>
           {/* ================= PHIM BL ================= */}
 
           <section className="movies">
