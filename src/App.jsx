@@ -15,7 +15,7 @@ import Footer from "./components/Footer";
 
 import MovieCardSearch from "./components/MovieCardSearch";
 
-import MovieList from "./pages/MovieList";
+
 
 
 function HomePage() {
@@ -81,7 +81,8 @@ function HomePage() {
     // ======================
 
     // Phim nổi bật (3 phim đầu)
-  const featuredMovies = filteredMovies;
+  const featuredMovies = [...filteredMovies]
+.sort((a,b)=>b.rating-a.rating);
 
   const featuredCurrent = featuredMovies.slice(
     (featuredPage - 1) * moviesPerPage,
@@ -99,6 +100,14 @@ function HomePage() {
       const costumeMovies = filteredMovies.filter(
         (movie) => movie.genre === "Cổ trang"
       );
+      const costumeCurrent = costumeMovies.slice(
+        (costumePage - 1) * moviesPerPage,
+        costumePage * moviesPerPage
+      );
+
+      const costumeTotal = Math.ceil(
+        costumeMovies.length / moviesPerPage
+      );
       const topMovies = [...filteredMovies].sort(
         (a, b) => b.rating - a.rating
       );
@@ -110,16 +119,6 @@ function HomePage() {
       const blTotal = Math.ceil(
         blMovies.length / moviesPerPage
       );
-
-    // Phim Cổ trang
-    const costumeCurrent = costumeMovies.slice(
-    (costumePage - 1) * moviesPerPage,
-    costumePage * moviesPerPage
-  );
-
-  const costumeTotal = Math.ceil(
-    costumeMovies.length / moviesPerPage
-  );
 
     // Top đánh giá
     const topCurrent = topMovies.slice(
@@ -133,8 +132,7 @@ const topTotal = Math.ceil(
 
     // Tổng số trang
     const totalPages = Math.ceil(filteredMovies.length / moviesPerPage);
-    console.log(filteredMovies.length);
-    console.log(totalPages);
+  
 
     // Chỉ lấy phim của trang hiện tại
     const currentMovies = filteredMovies.slice(
@@ -564,7 +562,7 @@ const topTotal = Math.ceil(
             </div>
 
             <div className="movie-grid">
-              {featuredMovies.map((movie) => (
+              {blCurrent.map((movie) => (
                 <MovieCard
                   key={movie.id}
                   movie={movie}
@@ -573,6 +571,40 @@ const topTotal = Math.ceil(
             </div>
 
           </section>
+          <div className="pagination">
+
+            <button
+              disabled={blPage === 1}
+              onClick={() => setBlPage(blPage - 1)}
+            >
+              ❮
+            </button>
+
+            {Array.from(
+              { length: blTotal },
+              (_, index) => (
+                <button
+                  key={index}
+                  className={
+                    blPage === index + 1
+                      ? "active-page"
+                      : ""
+                  }
+                  onClick={() => setBlPage(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              )
+            )}
+
+            <button
+              disabled={blPage === blTotal}
+              onClick={() => setBlPage(blPage + 1)}
+            >
+              ❯
+            </button>
+
+          </div>
 
           {/* ================= PHIM CỔ TRANG ================= */}
 
@@ -585,7 +617,7 @@ const topTotal = Math.ceil(
             </div>
 
             <div className="movie-grid">
-              {featuredMovies.map((movie) => (
+                {costumeCurrent.map((movie) => (
                 <MovieCard
                   key={movie.id}
                   movie={movie}
@@ -594,6 +626,42 @@ const topTotal = Math.ceil(
             </div>
 
           </section>
+          <div className="pagination">
+
+            <button
+              disabled={costumePage === 1}
+              onClick={() => setCostumePage(costumePage - 1)}
+            >
+              ❮
+            </button>
+
+            {Array.from(
+              { length: costumeTotal },
+              (_, index) => (
+
+                <button
+                  key={index}
+                  className={
+                    costumePage === index + 1
+                      ? "active-page"
+                      : ""
+                  }
+                  onClick={() => setCostumePage(index + 1)}
+                >
+                  {index + 1}
+                </button>
+
+              )
+            )}
+
+            <button
+              disabled={costumePage === costumeTotal}
+              onClick={() => setCostumePage(costumePage + 1)}
+            >
+              ❯
+            </button>
+
+          </div>
 
           {/* ================= TOP ĐÁNH GIÁ ================= */}
 
@@ -605,7 +673,7 @@ const topTotal = Math.ceil(
           </div>
 
           <div className="movie-grid">
-            {featuredMovies.map((movie) => (
+              {topCurrent.map((movie) => (
               <MovieCard
                 key={movie.id}
                 movie={movie}
@@ -614,6 +682,31 @@ const topTotal = Math.ceil(
           </div>
 
         </section>
+        <div className="pagination">
+          <button
+            disabled={topPage === 1}
+            onClick={() => setTopPage(topPage - 1)}
+          >
+            ❮
+          </button>
+
+          {Array.from({ length: topTotal }, (_, index) => (
+            <button
+              key={index}
+              className={topPage === index + 1 ? "active-page" : ""}
+              onClick={() => setTopPage(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
+
+          <button
+            disabled={topPage === topTotal}
+            onClick={() => setTopPage(topPage + 1)}
+          >
+            ❯
+          </button>
+        </div>
 
         </>
 
