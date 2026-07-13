@@ -216,6 +216,50 @@ const movies = [
       },
     ],
   },
+  {
+    id: 7,
+    title: "Rạng Đông",
+    image: together,
+
+    type: "Phim bộ",
+
+    genre: "BL",
+    country: "Thái Lan",
+
+    rating: 4.5,
+    year: 2026,
+    episodes: 13,
+    duration: "45 phút",
+
+    director: "Weerachit Thongjila",
+    actors: " Inn Jakkrasin / Ongsa Tthuchh",
+
+    description:
+      "Thuở nhỏ, Tiểu Vương Tử và con trai của nhũ mẫu luôn như hình với bóng. Mối tình đầu ngây thơ của họ lặng lẽ nảy nở sau những bức tường cung điện. Thế nhưng, lễ nghi hà khắc và khoảng cách địa vị đã chia cắt hai người.Nhiều năm sau, họ gặp lại khi đất nước đứng trước bước ngoặt lớn. Một người trở thành vị hoàng tử mang trên vai trách nhiệm của hoàng gia. Người còn lại chỉ mong được sống một cuộc đời tự do bên ngoài cánh cổng cung điện.Cuộc hội ngộ khơi dậy những cảm xúc tưởng chừng đã ngủ yên. Tình yêu của họ lại một lần nữa nảy nở. Nhưng thế giới ấy bị chi phối bởi thứ bậc, danh dự và những quy tắc bất thành văn. Mối quan hệ của họ có thể là điều mà vương quốc không bao giờ chấp nhận.Liệu tình yêu có thể bén rễ trên mảnh đất vốn cấm đoán nó ngay từ khi bắt đầu?",
+
+    episodesList: [
+      {
+        id: 1,
+        title: "Tập 1",
+        video: "/videos/together/episode1.mp4",
+      },
+      {
+        id: 2,
+        title: "Tập 2",
+        video: "/videos/together/episode2.mp4",
+      },
+       {
+        id: 3,
+        title: "Tập 3",
+        video: "/videos/together/episode2.mp4",
+      },
+       {
+        id: 4,
+        title: "Tập 4",
+        video: "/videos/together/episode2.mp4",
+      },
+    ],
+  },
 ];
 
 export default movies;
