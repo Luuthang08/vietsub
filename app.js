@@ -88,6 +88,27 @@ const movies = [
     updated: 4,
     colors: ["#748b9f", "#282f47"],
     tag: "FULL EP"
+  },
+  {
+    id: 5,
+    title: "Mr. Kill",
+    english: "มังงะสั่งตาย",
+    country: "Thái Lan",
+    year: 2026,
+    episodeLabel: "Tập 1 · 4 phần",
+    runtime: "Tập 1 · 4 phần",
+    genre: "Trinh thám · Tâm lý",
+    description:
+      "Họa sĩ truyện tranh Kaye bị cuốn vào vụ án mạng có hiện trường giống hệt tác phẩm của mình. Xem đủ 4 phần Tập 1 từ kênh GMMTV OFFICIAL ngay trên TLvietsub.",
+    episodes: [
+      { label: "Tập 1 · Phần 1/4", videoId: "HkerkalES3M" },
+      { label: "Tập 1 · Phần 2/4", videoId: "XxrpsbkckYk" },
+      { label: "Tập 1 · Phần 3/4", videoId: "izoa6KNssBg" },
+      { label: "Tập 1 · Phần 4/4", videoId: "kvpoEUlbNRM" }
+    ],
+    updated: 5,
+    colors: ["#34424f", "#24212b"],
+    tag: "TẬP ĐẦU"
   }
 ];
 
