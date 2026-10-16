@@ -73,13 +73,34 @@
     </section>
   </main>
 
-  <footer><a class="brand footer-brand" href="#home"><span class="brand-mark">TL</span><span>vietsub</span></a><p>TLvietsub · Khám phá những câu chuyện đáng nhớ.</p><a href="#home">Lên đầu trang ↑</a></footer>
+  <main id="detail-view" class="subpage" hidden>
+    <section class="detail-hero" id="detail-hero">
+      <div class="detail-backdrop"></div><div class="detail-shade"></div>
+      <div class="detail-breadcrumb"><a href="#home">Trang chủ</a><span>›</span><span id="detail-breadcrumb-title">Phim</span></div>
+      <div class="detail-layout">
+        <div class="detail-copy"><h1 id="detail-title">Tên phim</h1><p class="detail-english" id="detail-english"></p><p class="detail-description" id="detail-description"></p>
+          <dl class="detail-facts"><div><dt>Thể loại</dt><dd id="detail-genre"></dd></div><div><dt>Quốc gia</dt><dd id="detail-country"></dd></div><div><dt>Năm phát hành</dt><dd id="detail-year"></dd></div><div><dt>Trạng thái</dt><dd id="detail-status"></dd></div><div><dt>Số tập</dt><dd id="detail-episodes"></dd></div><div><dt>Thời lượng</dt><dd id="detail-runtime"></dd></div></dl>
+          <button class="primary-button detail-watch" id="detail-watch" type="button">▶ &nbsp; Xem phim</button>
+        </div>
+        <div class="detail-play-area"><button class="detail-play" id="detail-play" type="button" aria-label="Xem phim">▶</button><span> Xem phim</span></div>
+      </div>
+    </section>
+    <section class="recommendations content-section"><div class="section-title-row"><div><p class="eyebrow">GỢI Ý CHO BẠN</p><h2>Nhiều người cùng xem</h2></div></div><div class="movie-grid" id="recommendation-list"></div></section>
+  </main>
 
-  <dialog id="watch-dialog" class="watch-dialog">
-    <button class="dialog-close" type="button" aria-label="Đóng">×</button>
-    <div class="player-wrap"><iframe id="movie-player" title="Trình phát phim" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="origin" allowfullscreen></iframe></div>
-    <div class="dialog-copy"><div class="player-heading"><div><p class="eyebrow">ĐANG PHÁT</p><h2 id="dialog-title">Tên phim</h2></div><label class="episode-picker"><span>Tập / phần</span><select id="episode-select" aria-label="Chọn tập phim"></select></label></div><p id="dialog-description"></p><div class="dialog-meta" id="dialog-meta"></div><a id="source-link" class="source-link" target="_blank" rel="noopener noreferrer">Mở trên YouTube ↗</a><p class="dialog-hint">Video được phát từ kênh chính thức. Nếu không phát được trong khung, hãy mở trên YouTube.</p></div>
-  </dialog>
+  <main id="watch-view" class="subpage watch-page" hidden>
+    <div class="watch-breadcrumb"><a href="#home">Trang chủ</a><span>›</span><a id="watch-back-detail" href="#">Thông tin phim</a><span>›</span><span id="watch-breadcrumb-episode">Đang xem</span></div>
+    <div class="watch-columns">
+      <section class="watch-main-column">
+        <div class="watch-player-shell"><iframe id="movie-player" title="Trình phát phim" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="origin" allowfullscreen></iframe></div>
+        <div class="server-row"><span class="server-label">Nguồn phát</span><button class="server-button active" type="button">YouTube chính thức</button><a id="source-link" class="server-external" target="_blank" rel="noopener noreferrer">Mở video ↗</a></div>
+        <div class="episode-row"><div><p class="eyebrow">ĐANG PHÁT</p><h1 id="watch-title">Tên phim</h1></div><label class="episode-picker"><span>Chọn tập / phần</span><select id="episode-select" aria-label="Chọn tập phim"></select></label></div>
+        <div class="watch-details"><p id="watch-description"></p><div class="watch-tags" id="watch-meta"></div><button class="back-detail-button" id="back-detail-button" type="button">← Quay lại thông tin phim</button></div>
+      </section>
+      <aside class="comments-panel"><h2>💬 Bình luận <span id="comment-count">(0)</span></h2><p class="comments-intro">Chia sẻ cảm nhận của bạn về bộ phim.</p><form id="comment-form"><label for="comment-name">Tên hiển thị</label><input id="comment-name" maxlength="40" placeholder="Tên của bạn" required><label for="comment-text">Viết bình luận</label><textarea id="comment-text" rows="4" maxlength="500" placeholder="Nhập bình luận..." required></textarea><button class="primary-button" type="submit">Gửi bình luận</button></form><div id="comment-list" class="comment-list"></div></aside>
+    </div>
+  </main>
+  <footer id="site-footer"><a class="brand footer-brand" href="#home"><span class="brand-mark">TL</span><span>vietsub</span></a><p>TLvietsub · Khám phá những câu chuyện đáng nhớ.</p><a href="#home">Lên đầu trang ↑</a></footer>
   <script>
     if (window.location.protocol === "file:") {
       const localPreviewScript = document.createElement("script");

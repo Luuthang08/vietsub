@@ -18,19 +18,20 @@ const popularList = document.querySelector("#popular-list");
 const searchInput = document.querySelector("#search");
 const sortSelect = document.querySelector("#sort");
 const emptyMessage = document.querySelector("#empty-message");
-const dialog = document.querySelector("#watch-dialog");
 const player = document.querySelector("#movie-player");
 const episodeSelect = document.querySelector("#episode-select");
 let activeGenre = "all";
 let activeMovie = null;
 let activeYear = "all";
 let activeFeatured = 0;
+let activeEpisode = 0;
 
 function makePoster(movie, className = "poster") {
   const poster = document.createElement("div");
   poster.className = className;
   poster.style.setProperty("--poster-a", movie.colors[0]);
   poster.style.setProperty("--poster-b", movie.colors[1]);
+  poster.style.setProperty("--poster-image", `url("https://i.ytimg.com/vi/${movie.episodes[0].videoId}/hqdefault.jpg")`);
   poster.innerHTML = `<span class="poster-orbit"></span><span class="poster-copy"><small>${movie.country} · ${movie.year}</small><b>${movie.title}</b><i>${movie.english}</i></span>`;
   return poster;
 }
@@ -83,22 +84,62 @@ function renderMovies() {
 }
 
 function openMovie(movie) {
+  window.location.hash = `detail/${movie.id}`;
+}
+
+function showDetail(movie) {
   activeMovie = movie;
-  document.querySelector("#dialog-title").textContent = movie.title;
-  document.querySelector("#dialog-description").textContent = movie.description;
-  document.querySelector("#dialog-meta").textContent = `${movie.country} · ${movie.year} · ${movie.runtime}`;
-  episodeSelect.replaceChildren(...movie.episodes.map((episode, index) => {
+  document.querySelector("#home").hidden = true;
+  document.querySelector("#detail-view").hidden = false;
+  document.querySelector("#watch-view").hidden = true;
+  document.querySelector("#site-footer").hidden = true;
+  document.querySelector("#detail-title").textContent = movie.title;
+  document.querySelector("#detail-english").textContent = `${movie.english} · ${movie.year}`;
+  document.querySelector("#detail-description").textContent = movie.description;
+  document.querySelector("#detail-breadcrumb-title").textContent = movie.title;
+  document.querySelector("#detail-genre").textContent = movie.genre;
+  document.querySelector("#detail-country").textContent = movie.country;
+  document.querySelector("#detail-year").textContent = String(movie.year);
+  document.querySelector("#detail-status").textContent = movie.episodeLabel;
+  document.querySelector("#detail-episodes").textContent = String(movie.episodes.length);
+  document.querySelector("#detail-runtime").textContent = movie.runtime;
+  document.querySelector("#detail-hero").style.setProperty("--poster-a", movie.colors[0]);
+  document.querySelector("#detail-hero").style.setProperty("--poster-b", movie.colors[1]);
+  document.querySelector("#detail-hero").style.setProperty("--detail-image", `url("https://i.ytimg.com/vi/${movie.episodes[0].videoId}/hqdefault.jpg")`);
+  const recommendations = movies.filter(item => item.id !== movie.id);
+  document.querySelector("#recommendation-list").replaceChildren(...recommendations.map(movieCard));
+  window.scrollTo(0, 0);
+}
+
+function makeEpisodeOptions(movie) {
+  return movie.episodes.map((episode, index) => {
     const option = document.createElement("option");
     option.value = String(index);
     option.textContent = episode.label;
     return option;
-  }));
+  });
+}
+
+function showWatch(movie) {
+  activeMovie = movie;
+  activeEpisode = 0;
+  document.querySelector("#home").hidden = true;
+  document.querySelector("#detail-view").hidden = true;
+  document.querySelector("#watch-view").hidden = false;
+  document.querySelector("#site-footer").hidden = true;
+  document.querySelector("#watch-title").textContent = movie.title;
+  document.querySelector("#watch-description").textContent = movie.description;
+  document.querySelector("#watch-meta").textContent = `${movie.country} · ${movie.year} · ${movie.genre} · ${movie.runtime}`;
+  document.querySelector("#watch-back-detail").href = `#detail/${movie.id}`;
+  episodeSelect.replaceChildren(...makeEpisodeOptions(movie));
+  renderComments(movie);
   playEpisode(0);
-  dialog.showModal();
+  window.scrollTo(0, 0);
 }
 
 function playEpisode(index) {
   if (!activeMovie) return;
+  activeEpisode = index;
   const episode = activeMovie.episodes[index];
   const siteOrigin = /^https?:$/.test(window.location.protocol)
     ? window.location.origin
@@ -112,6 +153,43 @@ function playEpisode(index) {
   player.src = `https://www.youtube.com/embed/${episode.videoId}?${playerParams.toString()}`;
   player.title = `${activeMovie.title} — ${episode.label}`;
   document.querySelector("#source-link").href = `https://www.youtube.com/watch?v=${episode.videoId}`;
+  document.querySelector("#watch-breadcrumb-episode").textContent = episode.label;
+  episodeSelect.value = String(index);
+}
+
+function renderComments(movie) {
+  const key = `tlvietsub-comments-${movie.id}`;
+  let comments = [];
+  try { comments = JSON.parse(localStorage.getItem(key) || "[]"); } catch { comments = []; }
+  const list = document.querySelector("#comment-list");
+  list.replaceChildren(...comments.map(comment => {
+    const row = document.createElement("article");
+    row.className = "comment-item";
+    const name = document.createElement("strong");
+    name.textContent = comment.name;
+    const body = document.createElement("p");
+    body.textContent = comment.text;
+    const date = document.createElement("small");
+    date.textContent = comment.date;
+    row.append(name, date, body);
+    return row;
+  }));
+  document.querySelector("#comment-count").textContent = `(${comments.length})`;
+}
+
+function routeFromHash() {
+  const match = window.location.hash.match(/^#(detail|watch)\/(\d+)/);
+  const movie = match && movies.find(item => item.id === Number(match[2]));
+  if (movie && match[1] === "detail") showDetail(movie);
+  else if (movie && match[1] === "watch") showWatch(movie);
+  else {
+    document.querySelector("#home").hidden = false;
+    document.querySelector("#detail-view").hidden = true;
+    document.querySelector("#watch-view").hidden = true;
+    document.querySelector("#site-footer").hidden = false;
+    if (player) player.src = "";
+    activeMovie = null;
+  }
 }
 
 document.querySelectorAll("#genre-filters .chip").forEach(button => {
@@ -162,10 +240,22 @@ movies.forEach((movie, index) => {
 document.querySelector(".hero-prev").addEventListener("click", () => setFeatured(activeFeatured - 1));
 document.querySelector(".hero-next").addEventListener("click", () => setFeatured(activeFeatured + 1));
 document.querySelector("[data-featured-watch]").addEventListener("click", () => openMovie(movies[activeFeatured]));
-document.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
+document.querySelector("#detail-watch").addEventListener("click", () => activeMovie && (window.location.hash = `watch/${activeMovie.id}`));
+document.querySelector("#detail-play").addEventListener("click", () => activeMovie && (window.location.hash = `watch/${activeMovie.id}`));
+document.querySelector("#back-detail-button").addEventListener("click", () => activeMovie && (window.location.hash = `detail/${activeMovie.id}`));
 episodeSelect.addEventListener("change", () => playEpisode(Number(episodeSelect.value)));
-dialog.addEventListener("close", () => { player.src = ""; activeMovie = null; });
-dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
+window.addEventListener("hashchange", routeFromHash);
+document.querySelector("#comment-form").addEventListener("submit", event => {
+  event.preventDefault();
+  if (!activeMovie) return;
+  const key = `tlvietsub-comments-${activeMovie.id}`;
+  let comments = [];
+  try { comments = JSON.parse(localStorage.getItem(key) || "[]"); } catch { comments = []; }
+  comments.unshift({ name: document.querySelector("#comment-name").value.trim(), text: document.querySelector("#comment-text").value.trim(), date: new Date().toLocaleDateString("vi-VN") });
+  localStorage.setItem(key, JSON.stringify(comments.slice(0, 30)));
+  event.currentTarget.reset();
+  renderComments(activeMovie);
+});
 document.querySelector("#menu-toggle").addEventListener("click", event => {
   const button = event.currentTarget;
   const nav = document.querySelector("#main-nav");
@@ -176,3 +266,4 @@ document.querySelectorAll("#main-nav a").forEach(link => link.addEventListener("
 
 renderMovies();
 setFeatured(0);
+routeFromHash();
