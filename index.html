@@ -28,9 +28,9 @@
       <div class="hero-content">
         <p class="eyebrow"><span class="live-dot"></span> TUYỂN CHỌN THÁNG NÀY</p>
         <p class="hero-kicker">SERIES THÁI LAN · TÌNH CẢM</p>
-        <h1>Chuyện chúng ta<br><em>chưa kể</em></h1>
-        <p class="hero-description">Một cuộc gặp tình cờ, những bí mật chưa gọi thành tên và hành trình dũng cảm để đến gần nhau hơn.</p>
-        <div class="hero-meta"><span>2025</span><i></i><span>12 tập</span><i></i><span>45 phút / tập</span><i></i><span class="quality">HD</span></div>
+        <h1>Love in the<br><em>Air</em></h1>
+        <p class="hero-description">Rain gặp Phayu, còn Sky vướng vào một mối quan hệ bất ngờ với Prapai. Bốn phần đầu tiên của tập 1 có thể xem ngay trên trang.</p>
+        <div class="hero-meta"><span>2022</span><i></i><span>13 tập</span><i></i><span>45 phút / tập</span><i></i><span class="quality">HD</span></div>
         <button class="primary-button" type="button" data-featured-watch>▶ &nbsp; Khám phá phim</button>
       </div>
       <div class="hero-pagination"><span class="selected"></span><span></span><span></span></div>
@@ -45,9 +45,6 @@
         <div class="filter-chips" id="genre-filters">
           <button class="chip selected" data-genre="all" type="button">Tất cả</button>
           <button class="chip" data-genre="Thái Lan" type="button">Thái Lan</button>
-          <button class="chip" data-genre="Hàn Quốc" type="button">Hàn Quốc</button>
-          <button class="chip" data-genre="Đài Loan" type="button">Đài Loan</button>
-          <button class="chip" data-genre="Trung Quốc" type="button">Trung Quốc</button>
         </div>
         <select id="sort" aria-label="Sắp xếp phim"><option value="updated">Mới cập nhật</option><option value="year">Năm phát hành</option><option value="title">Tên phim A–Z</option></select>
       </div>
@@ -65,10 +62,7 @@
           <p class="eyebrow">ĐANG ĐƯỢC QUAN TÂM</p>
           <h3>Thể loại nổi bật</h3>
           <div class="genre-list">
-            <a href="#latest" data-side-genre="Thái Lan"><span>Series Thái Lan</span><b>08</b></a>
-            <a href="#latest" data-side-genre="Hàn Quốc"><span>Phim Hàn Quốc</span><b>05</b></a>
-            <a href="#latest" data-side-genre="Đài Loan"><span>Phim Đài Loan</span><b>04</b></a>
-            <a href="#latest" data-side-genre="Trung Quốc"><span>Phim Trung Quốc</span><b>06</b></a>
+            <a href="#latest" data-side-genre="Thái Lan"><span>Series Thái Lan</span><b>04</b></a>
           </div>
         </div>
         <div class="side-note" id="about"><span class="note-icon">✦</span><h3>Góc phim TLvietsub</h3><p>Không gian khám phá những câu chuyện tình cảm nam đa dạng từ khắp châu Á.</p></div>
@@ -80,8 +74,8 @@
 
   <dialog id="watch-dialog" class="watch-dialog">
     <button class="dialog-close" type="button" aria-label="Đóng">×</button>
-    <div class="dialog-art"><span>TLVIETSUB</span></div>
-    <div class="dialog-copy"><p class="eyebrow">THÔNG TIN PHIM</p><h2 id="dialog-title">Tên phim</h2><p id="dialog-description"></p><div class="dialog-meta" id="dialog-meta"></div><a id="source-link" class="primary-button source-button" target="_blank" rel="noopener noreferrer">Tìm nguồn xem chính thức ↗</a><p class="dialog-hint">Liên kết sẽ mở kết quả tìm kiếm để bạn chọn nguồn phát hợp pháp.</p></div>
+    <div class="player-wrap"><iframe id="movie-player" title="Trình phát phim" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+    <div class="dialog-copy"><div class="player-heading"><div><p class="eyebrow">ĐANG PHÁT</p><h2 id="dialog-title">Tên phim</h2></div><label class="episode-picker"><span>Tập / phần</span><select id="episode-select" aria-label="Chọn tập phim"></select></label></div><p id="dialog-description"></p><div class="dialog-meta" id="dialog-meta"></div><a id="source-link" class="source-link" target="_blank" rel="noopener noreferrer">Mở trên YouTube ↗</a><p class="dialog-hint">Video được phát từ kênh chính thức. Nếu không phát được trong khung, hãy mở trên YouTube.</p></div>
   </dialog>
 </body>
 </html>

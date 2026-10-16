@@ -1,12 +1,16 @@
 const movies = [
-  { id: 1, title: "Giá Phải Trả", english: "The Price", country: "Thái Lan", year: 2026, episodes: "Tập 6 / 12", runtime: "10 phút / tập", genre: "Tình cảm · Tâm lý", description: "Mối quan hệ giữa hai người đàn ông bắt đầu như một thỏa thuận, rồi dần thay đổi khi cả hai hiểu điều người kia thật sự cần.", updated: 1, colors: ["#d37964", "#412e4a"], tag: "ĐANG CHIẾU" },
-  { id: 2, title: "Yêu Điên Cuồng", english: "Decoding You", country: "Thái Lan", year: 2026, episodes: "Tập 2 / 8", runtime: "52 phút / tập", genre: "Tình cảm · Hài", description: "Một CEO chỉn chu và chàng trai thẳng thắn bước vào chuyện tình bất ngờ, nơi mọi tín hiệu đều cần được giải mã.", updated: 2, colors: ["#d2a76c", "#4c394d"], tag: "MỚI" },
-  { id: 3, title: "Jiraphat Sẽ Là Cậu Bé Ngoan", english: "Good Boy", country: "Thái Lan", year: 2026, episodes: "Tập 1 / 10", runtime: "46 phút / tập", genre: "Tình cảm · Học đường", description: "Một lời hứa tưởng như đơn giản khiến hai người trẻ bắt đầu nhìn nhau bằng ánh mắt khác.", updated: 3, colors: ["#7995a5", "#25364c"], tag: "MỚI" },
-  { id: 4, title: "Love x3: Giáo Trình Tình Yêu Bắt Buộc", english: "LOVEx3", country: "Thái Lan", year: 2026, episodes: "Tập 9 / 15", runtime: "55 phút / tập", genre: "Tình cảm · Hài", description: "Ba người bạn cùng bước vào một khóa học tình yêu mà chẳng ai có thể làm theo đúng giáo trình.", updated: 4, colors: ["#bf7181", "#53324f"], tag: "TẬP MỚI" },
-  { id: 5, title: "Anh Sam Của Em", english: "Your Third", country: "Thái Lan", year: 2026, episodes: "Hoàn tất · 12 tập", runtime: "45 phút / tập", genre: "Tình cảm · Chính kịch", description: "Một câu chuyện dịu dàng về những rung động, sự trưởng thành và lựa chọn ở bên nhau.", updated: 5, colors: ["#c89268", "#3f3447"], tag: "HOÀN TẤT" },
-  { id: 6, title: "Chuyện chúng ta chưa kể", english: "Untold Between Us", country: "Đài Loan", year: 2025, episodes: "Hoàn tất · 12 tập", runtime: "45 phút / tập", genre: "Tình cảm · Chính kịch", description: "Một cuộc gặp tình cờ mở ra hành trình dũng cảm đối diện với những điều chưa từng nói thành lời.", updated: 6, colors: ["#748b9f", "#282f47"], tag: "ĐỀ CỬ" },
-  { id: 7, title: "Mùa Hạ Có Cậu", english: "Summer With You", country: "Hàn Quốc", year: 2025, episodes: "Hoàn tất · 8 tập", runtime: "35 phút / tập", genre: "Tình cảm · Thanh xuân", description: "Hai người bạn cũ gặp lại trong một mùa hè và nhận ra ký ức năm nào vẫn còn nguyên vẹn.", updated: 7, colors: ["#80a598", "#354860"], tag: "HOÀN TẤT" },
-  { id: 8, title: "Khoảng Cách Màu Xanh", english: "Blue Distance", country: "Trung Quốc", year: 2024, episodes: "Hoàn tất · 10 tập", runtime: "40 phút / tập", genre: "Tình cảm · Đời thường", description: "Một họa sĩ trẻ và người hàng xóm trầm lặng tìm thấy sự đồng điệu giữa thành phố rộng lớn.", updated: 8, colors: ["#60879b", "#292d50"], tag: "HOÀN TẤT" }
+  { id: 1, title: "Love in the Air", english: "บรรยากาศรัก", country: "Thái Lan", year: 2022, episodeLabel: "Tập 1 · 4 phần", runtime: "45 phút / tập", genre: "Tình cảm · Lãng mạn", description: "Rain gặp Phayu, còn Sky vướng vào một mối quan hệ đầy bất ngờ với Prapai. Bốn phần đầu tiên của tập 1 được phát trên kênh chính thức MeMindY.", episodes: [
+    { label: "Tập 1 · Phần 1/4", videoId: "FqDQ4kRPZEw" }, { label: "Tập 1 · Phần 2/4", videoId: "2DxR15ceTss" }, { label: "Tập 1 · Phần 3/4", videoId: "Q0R_y2mlqq4" }, { label: "Tập 1 · Phần 4/4", videoId: "0rq4HOlEG9g" }
+  ], updated: 1, colors: ["#d37964", "#412e4a"], tag: "TẬP ĐẦU" },
+  { id: 2, title: "Work From Heart", english: "รักป่วนก๊วนออฟฟิศ", country: "Thái Lan", year: 2022, episodeLabel: "Tập 1–6 · Có phụ đề Anh", runtime: "42 phút / tập", genre: "Tình cảm · Công sở", description: "Dee bắt đầu thực tập tại một công ty quảng cáo và gặp Knight, người đồng nghiệp khó gần. Series được đăng trên kênh DV8 Thailand với phụ đề tiếng Anh.", episodes: [
+    { label: "Tập 1", videoId: "ztyamPE_RDs" }, { label: "Tập 2", videoId: "qg_nb6FIr_8" }, { label: "Tập 3", videoId: "bkpdn3QKykk" }, { label: "Tập 4", videoId: "RXA9P0dRtmc" }, { label: "Tập 5", videoId: "3xrDWmc1Ems" }, { label: "Tập 6", videoId: "SQNpMHREdLc" }
+  ], updated: 2, colors: ["#d2a76c", "#4c394d"], tag: "6 TẬP" },
+  { id: 3, title: "To Sir, With Love", english: "คุณชาย", country: "Thái Lan", year: 2022, episodeLabel: "Tập 1 · Full episode", runtime: "1 giờ 10 phút / tập", genre: "Tình cảm · Chính kịch", description: "Giữa bí mật gia tộc và những quy tắc nghiêm khắc, Thian phải lựa chọn con đường của riêng mình. Tập đầu do kênh one31 phát hành.", episodes: [
+    { label: "Tập 1 · Full episode", videoId: "UnVJF81p8UY" }
+  ], updated: 3, colors: ["#a7816c", "#412f40"], tag: "FULL EP" },
+  { id: 4, title: "Pit Babe", english: "พิษเบ๊บ", country: "Thái Lan", year: 2023, episodeLabel: "Tập 1 · Full episode", runtime: "50 phút / tập", genre: "Tình cảm · Thể thao", description: "Một tay đua nổi tiếng gặp chàng trai có năng lực đặc biệt, mở đầu cho câu chuyện tình nhiều cạnh tranh. Tập đầu đăng trên kênh chính thức CHANGE2561.", episodes: [
+    { label: "Tập 1 · Full episode", videoId: "3d50dTT_lHk" }
+  ], updated: 4, colors: ["#748b9f", "#282f47"], tag: "FULL EP" }
 ];
 
 const movieList = document.querySelector("#movie-list");
@@ -15,7 +19,10 @@ const searchInput = document.querySelector("#search");
 const sortSelect = document.querySelector("#sort");
 const emptyMessage = document.querySelector("#empty-message");
 const dialog = document.querySelector("#watch-dialog");
+const player = document.querySelector("#movie-player");
+const episodeSelect = document.querySelector("#episode-select");
 let activeGenre = "all";
+let activeMovie = null;
 
 function makePoster(movie, className = "poster") {
   const poster = document.createElement("div");
@@ -32,7 +39,7 @@ function movieCard(movie) {
   card.append(makePoster(movie));
   const body = document.createElement("div");
   body.className = "movie-info";
-  body.innerHTML = `<div class="card-meta"><span class="episode-tag">${movie.episodes}</span><span class="hd-tag">HD</span></div><h3>${movie.title}</h3><p class="sub-title">${movie.english}</p><p class="movie-description">${movie.description}</p><div class="card-bottom"><span>${movie.country} <i>·</i> ${movie.year}</span><button type="button" class="watch-button">Xem phim <span>→</span></button></div>`;
+  body.innerHTML = `<div class="card-meta"><span class="episode-tag">${movie.episodeLabel}</span><span class="hd-tag">HD</span></div><h3>${movie.title}</h3><p class="sub-title">${movie.english}</p><p class="movie-description">${movie.description}</p><div class="card-bottom"><span>${movie.country} <i>·</i> ${movie.year}</span><button type="button" class="watch-button">Xem phim <span>→</span></button></div>`;
   body.querySelector(".watch-button").addEventListener("click", () => openMovie(movie));
   card.append(body);
   return card;
@@ -59,7 +66,7 @@ function renderMovies() {
     row.append(makePoster(movie, "mini-poster"));
     const copy = document.createElement("span");
     copy.className = "popular-copy";
-    copy.innerHTML = `<b>${movie.title}</b><small>${movie.country} · ${movie.year}</small><small class="popular-episode">${movie.episodes}</small>`;
+    copy.innerHTML = `<b>${movie.title}</b><small>${movie.country} · ${movie.year}</small><small class="popular-episode">${movie.episodeLabel}</small>`;
     row.append(copy);
     row.addEventListener("click", () => openMovie(movie));
     return row;
@@ -67,11 +74,26 @@ function renderMovies() {
 }
 
 function openMovie(movie) {
+  activeMovie = movie;
   document.querySelector("#dialog-title").textContent = movie.title;
   document.querySelector("#dialog-description").textContent = movie.description;
-  document.querySelector("#dialog-meta").textContent = `${movie.country} · ${movie.year} · ${movie.episodes} · ${movie.runtime}`;
-  document.querySelector("#source-link").href = `https://www.youtube.com/results?search_query=${encodeURIComponent(`${movie.title} ${movie.english} official` )}`;
+  document.querySelector("#dialog-meta").textContent = `${movie.country} · ${movie.year} · ${movie.runtime}`;
+  episodeSelect.replaceChildren(...movie.episodes.map((episode, index) => {
+    const option = document.createElement("option");
+    option.value = String(index);
+    option.textContent = episode.label;
+    return option;
+  }));
+  playEpisode(0);
   dialog.showModal();
+}
+
+function playEpisode(index) {
+  if (!activeMovie) return;
+  const episode = activeMovie.episodes[index];
+  player.src = `https://www.youtube-nocookie.com/embed/${episode.videoId}?autoplay=1&rel=0`;
+  player.title = `${activeMovie.title} — ${episode.label}`;
+  document.querySelector("#source-link").href = `https://www.youtube.com/watch?v=${episode.videoId}`;
 }
 
 document.querySelectorAll("#genre-filters .chip").forEach(button => {
@@ -89,8 +111,10 @@ document.querySelectorAll("[data-side-genre]").forEach(link => link.addEventList
 }));
 searchInput.addEventListener("input", renderMovies);
 sortSelect.addEventListener("change", renderMovies);
-document.querySelector("[data-featured-watch]").addEventListener("click", () => openMovie(movies[5]));
+document.querySelector("[data-featured-watch]").addEventListener("click", () => openMovie(movies[0]));
 document.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
+episodeSelect.addEventListener("change", () => playEpisode(Number(episodeSelect.value)));
+dialog.addEventListener("close", () => { player.src = ""; activeMovie = null; });
 dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
 document.querySelector("#menu-toggle").addEventListener("click", event => {
   const button = event.currentTarget;

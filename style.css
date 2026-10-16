@@ -114,6 +114,8 @@ footer p { flex: 1; }
 footer > a:last-child { color: #bdb8c0; }
 .watch-dialog { position: fixed; width: min(720px, calc(100% - 32px)); max-width: none; padding: 0; overflow: visible; border: 1px solid #46414a; border-radius: 9px; background: #18171d; color: var(--text); box-shadow: 0 25px 90px #000b; }
 .watch-dialog::backdrop { background: #07070bd9; backdrop-filter: blur(5px); }
+.player-wrap { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #000; }
+.player-wrap iframe { display: block; width: 100%; height: 100%; border: 0; }
 .dialog-close { position: absolute; z-index: 2; top: 10px; right: 12px; width: 32px; height: 32px; border: 1px solid #ffffff33; border-radius: 50%; background: #101014aa; color: white; font-size: 22px; cursor: pointer; }
 .dialog-art { position: relative; display: grid; height: 170px; place-items: center; overflow: hidden; background: radial-gradient(ellipse at 50% 70%,#b34964aa,transparent 45%),linear-gradient(120deg,#292637,#4c2939); }
 .dialog-art::before, .dialog-art::after { position: absolute; width: 100px; height: 170px; border: 1px solid #ffffff30; border-radius: 50% 50% 8% 8%; content: ""; transform: rotate(18deg); background: linear-gradient(155deg,#ffffff24,#28212d88); }
@@ -121,10 +123,14 @@ footer > a:last-child { color: #bdb8c0; }
 .dialog-art::after { margin-left: 75px; }
 .dialog-art span { z-index: 1; color: #ffffffbb; font-family: Georgia,serif; font-size: 22px; letter-spacing: 5px; text-shadow: 0 2px 12px #000; }
 .dialog-copy { padding: 23px 27px 27px; }
+.player-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.episode-picker { display: flex; flex-direction: column; gap: 5px; color: #8f8993; font-size: 9px; }
+.episode-picker select { max-width: 190px; padding: 8px 10px; border: 1px solid #3a343e; border-radius: 4px; background: #211e26; color: #f3edf1; font-size: 10px; }
 .dialog-copy h2 { font-size: 23px; }
 .dialog-copy > p:not(.eyebrow):not(.dialog-hint) { color: #b8b3bd; font-size: 12px; line-height: 1.7; }
 .dialog-meta { margin: 12px 0 18px; color: #d4a0a8; font-size: 10px; }
-.source-button { text-decoration: none; }
+.source-link { color: #ff9aa8; font-size: 11px; font-weight: 700; }
+.source-link:hover { color: white; }
 .dialog-hint { margin: 11px 0 0; color: #85818a; font-size: 9px; }
 [hidden] { display: none !important; }
 
@@ -188,6 +194,8 @@ footer > a:last-child { color: #bdb8c0; }
   footer { flex-wrap: wrap; gap: 10px; padding: 17px 16px; }
   footer p { order: 3; width: 100%; flex-basis: 100%; margin: 0; }
   .dialog-copy { padding: 20px; }
+  .player-heading { align-items: flex-start; flex-direction: column; }
+  .episode-picker select { max-width: 100%; }
 }
 @media (max-width: 390px) {
   .main-nav { top: 61px; }
