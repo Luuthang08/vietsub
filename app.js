@@ -8,8 +8,20 @@ const movies = [
   { id: 3, title: "To Sir, With Love", english: "คุณชาย", country: "Thái Lan", year: 2022, episodeLabel: "Tập 1 · Full episode", runtime: "1 giờ 10 phút / tập", genre: "Tình cảm · Chính kịch", description: "Giữa bí mật gia tộc và những quy tắc nghiêm khắc, Thian phải lựa chọn con đường của riêng mình. Tập đầu do kênh one31 phát hành.", episodes: [
     { label: "Tập 1 · Full episode", videoId: "UnVJF81p8UY" }
   ], updated: 3, colors: ["#a7816c", "#412f40"], tag: "FULL EP" },
-  { id: 4, title: "Pit Babe", english: "พิษเบ๊บ", country: "Thái Lan", year: 2023, episodeLabel: "Tập 1 · Full episode", runtime: "50 phút / tập", genre: "Tình cảm · Thể thao", description: "Một tay đua nổi tiếng gặp chàng trai có năng lực đặc biệt, mở đầu cho câu chuyện tình nhiều cạnh tranh. Tập đầu đăng trên kênh chính thức CHANGE2561.", episodes: [
-    { label: "Tập 1 · Full episode", videoId: "3d50dTT_lHk" }
+  { id: 4, title: "Pit Babe", english: "พิษเบ๊บ", country: "Thái Lan", year: 2023, episodeLabel: "13 tập · Full episode", runtime: "50 phút / tập", genre: "Tình cảm · Thể thao", description: "Một tay đua nổi tiếng gặp chàng trai có năng lực đặc biệt, mở đầu cho câu chuyện tình nhiều cạnh tranh. Chọn một trong 13 tập đầy đủ trên kênh YouTube CHANGE2561.", episodes: [
+    { label: "Tập 1 · Full episode", videoId: "3d50dTT_lHk" },
+    { label: "Tập 2 · Full episode", videoId: "34KryJmmk88" },
+    { label: "Tập 3 · Full episode", videoId: "Vdmx8JtiFN0" },
+    { label: "Tập 4 · Full episode", videoId: "BN1U9GrZDe8" },
+    { label: "Tập 5 · Full episode", videoId: "MAS9sC1JC9E" },
+    { label: "Tập 6 · Full episode", videoId: "6s-jlYpbzDg" },
+    { label: "Tập 7 · Full episode", videoId: "vNWWTedE9GY" },
+    { label: "Tập 8 · Full episode", videoId: "CM4glRnll4M" },
+    { label: "Tập 9 · Full episode", videoId: "V1frHiCE8V0" },
+    { label: "Tập 10 · Full episode", videoId: "qt3x8CYXaTo" },
+    { label: "Tập 11 · Full episode", videoId: "LMypFn4YsYo" },
+    { label: "Tập 12 · Full episode", videoId: "Dx5uPpi0yBc" },
+    { label: "Tập 13 · Full episode", videoId: "2iAhRWVLmG0" }
   ], updated: 4, colors: ["#748b9f", "#282f47"], tag: "FULL EP" }
 ];
 
