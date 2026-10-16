@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="TLvietsub — khám phá phim tình cảm nam và series châu Á.">
   <meta name="theme-color" content="#101014">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>TLvietsub — Phim BL & Đam Mỹ</title>
   <link rel="stylesheet" href="style.css">
   <script src="app.js" defer></script>
@@ -74,7 +75,7 @@
 
   <dialog id="watch-dialog" class="watch-dialog">
     <button class="dialog-close" type="button" aria-label="Đóng">×</button>
-    <div class="player-wrap"><iframe id="movie-player" title="Trình phát phim" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+    <div class="player-wrap"><iframe id="movie-player" title="Trình phát phim" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="origin" allowfullscreen></iframe></div>
     <div class="dialog-copy"><div class="player-heading"><div><p class="eyebrow">ĐANG PHÁT</p><h2 id="dialog-title">Tên phim</h2></div><label class="episode-picker"><span>Tập / phần</span><select id="episode-select" aria-label="Chọn tập phim"></select></label></div><p id="dialog-description"></p><div class="dialog-meta" id="dialog-meta"></div><a id="source-link" class="source-link" target="_blank" rel="noopener noreferrer">Mở trên YouTube ↗</a><p class="dialog-hint">Video được phát từ kênh chính thức. Nếu không phát được trong khung, hãy mở trên YouTube.</p></div>
   </dialog>
 </body>

@@ -91,7 +91,16 @@ function openMovie(movie) {
 function playEpisode(index) {
   if (!activeMovie) return;
   const episode = activeMovie.episodes[index];
-  player.src = `https://www.youtube-nocookie.com/embed/${episode.videoId}?autoplay=1&rel=0`;
+  const siteOrigin = /^https?:$/.test(window.location.protocol)
+    ? window.location.origin
+    : "https://vietsub-nu.vercel.app";
+  const playerParams = new URLSearchParams({
+    autoplay: "1",
+    rel: "0",
+    origin: siteOrigin,
+    widget_referrer: siteOrigin
+  });
+  player.src = `https://www.youtube.com/embed/${episode.videoId}?${playerParams.toString()}`;
   player.title = `${activeMovie.title} — ${episode.label}`;
   document.querySelector("#source-link").href = `https://www.youtube.com/watch?v=${episode.videoId}`;
 }
