@@ -78,5 +78,12 @@
     <div class="player-wrap"><iframe id="movie-player" title="Trình phát phim" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="origin" allowfullscreen></iframe></div>
     <div class="dialog-copy"><div class="player-heading"><div><p class="eyebrow">ĐANG PHÁT</p><h2 id="dialog-title">Tên phim</h2></div><label class="episode-picker"><span>Tập / phần</span><select id="episode-select" aria-label="Chọn tập phim"></select></label></div><p id="dialog-description"></p><div class="dialog-meta" id="dialog-meta"></div><a id="source-link" class="source-link" target="_blank" rel="noopener noreferrer">Mở trên YouTube ↗</a><p class="dialog-hint">Video được phát từ kênh chính thức. Nếu không phát được trong khung, hãy mở trên YouTube.</p></div>
   </dialog>
+  <script>
+    if (window.location.protocol === "file:") {
+      const localPreviewScript = document.createElement("script");
+      localPreviewScript.src = "./app.js";
+      document.body.append(localPreviewScript);
+    }
+  </script>
 </body>
 </html>
