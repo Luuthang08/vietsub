@@ -21,7 +21,7 @@
       <details class="nav-dropdown"><summary>Phim theo năm</summary><div class="dropdown-menu"><a href="#latest" data-nav-year="2023">2023</a><a href="#latest" data-nav-year="2022">2022</a><a href="#latest" data-nav-year="all">Tất cả năm</a></div></details>
       <a href="#series">Phim mới</a><a href="#about">Giới thiệu</a>
     </nav>
-    <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Tìm phim, diễn viên..." aria-label="Tìm phim, diễn viên"></label>
+    <form class="search-box" id="search-form" role="search"><input id="search" type="search" placeholder="Tìm phim, diễn viên..." aria-label="Tìm phim, diễn viên"><button type="submit" aria-label="Tìm kiếm">⌕</button></form>
   </header>
 
   <main id="home">
@@ -101,6 +101,13 @@
       <aside class="comments-panel"><h2>💬 Bình luận <span id="comment-count">(0)</span></h2><p class="comments-intro">Chia sẻ cảm nhận của bạn về bộ phim.</p><form id="comment-form"><label for="comment-name">Tên hiển thị</label><input id="comment-name" maxlength="40" placeholder="Tên của bạn" required><label for="comment-text">Viết bình luận</label><textarea id="comment-text" rows="4" maxlength="500" placeholder="Nhập bình luận..." required></textarea><button class="primary-button" type="submit">Gửi bình luận</button></form><div id="comment-list" class="comment-list"></div></aside>
     </div>
     <section class="watch-recommendations content-section"><div class="section-title-row"><div><p class="eyebrow">GỢI Ý CHO BẠN</p><h2>Nhiều người cùng xem</h2></div></div><div class="movie-grid" id="watch-recommendation-list"></div></section>
+  </main>
+  <main id="search-view" class="subpage search-page" hidden>
+    <div class="search-breadcrumb"><a href="#home">Trang chủ</a><span>›</span><span>Kết quả tìm kiếm về <b id="search-breadcrumb-query"></b></span></div>
+    <h1 class="search-results-title">KẾT QUẢ TÌM KIẾM VỀ <span id="search-heading-query"></span></h1>
+    <p class="search-results-count" id="search-results-count"></p>
+    <div class="search-results-grid" id="search-results-grid"></div>
+    <p id="search-empty" class="search-empty" hidden>Không tìm thấy phim phù hợp với từ khóa này.</p>
   </main>
   <footer id="site-footer"><a class="brand footer-brand" href="#home"><span class="brand-mark">TL</span><span>vietsub</span></a><p>TLvietsub · Khám phá những câu chuyện đáng nhớ.</p><a href="#home">Lên đầu trang ↑</a></footer>
   <script>

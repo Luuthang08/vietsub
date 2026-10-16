@@ -93,6 +93,7 @@ function showDetail(movie) {
   document.querySelector("#home").hidden = true;
   document.querySelector("#detail-view").hidden = false;
   document.querySelector("#watch-view").hidden = true;
+  document.querySelector("#search-view").hidden = true;
   document.querySelector("#site-footer").hidden = true;
   document.querySelector("#detail-title").textContent = movie.title;
   document.querySelector("#detail-english").textContent = `${movie.english} · ${movie.year}`;
@@ -139,6 +140,7 @@ function showWatch(movie) {
   document.querySelector("#home").hidden = true;
   document.querySelector("#detail-view").hidden = true;
   document.querySelector("#watch-view").hidden = false;
+  document.querySelector("#search-view").hidden = true;
   document.querySelector("#site-footer").hidden = true;
   document.querySelector("#watch-title").textContent = movie.title;
   document.querySelector("#watch-description").textContent = movie.description;
@@ -151,6 +153,28 @@ function showWatch(movie) {
   document.querySelector("#toggle-lights").setAttribute("aria-pressed", "false");
   renderComments(movie);
   playEpisode(0);
+  window.scrollTo(0, 0);
+}
+
+function showSearch(query) {
+  const normalizedQuery = query.trim().toLocaleLowerCase("vi");
+  document.querySelector("#home").hidden = true;
+  document.querySelector("#detail-view").hidden = true;
+  document.querySelector("#watch-view").hidden = true;
+  document.querySelector("#search-view").hidden = false;
+  document.querySelector("#site-footer").hidden = true;
+  if (player) player.src = "";
+  activeMovie = null;
+  searchInput.value = query;
+  document.querySelector("#search-breadcrumb-query").textContent = query;
+  document.querySelector("#search-heading-query").textContent = query;
+  const results = movies.filter(movie => {
+    const searchable = `${movie.title} ${movie.english} ${movie.country} ${movie.genre} ${movie.description}`.toLocaleLowerCase("vi");
+    return searchable.includes(normalizedQuery);
+  });
+  document.querySelector("#search-results-grid").replaceChildren(...results.map(movieCard));
+  document.querySelector("#search-results-count").textContent = `${results.length} phim được tìm thấy`;
+  document.querySelector("#search-empty").hidden = results.length > 0;
   window.scrollTo(0, 0);
 }
 
@@ -199,6 +223,13 @@ function renderComments(movie) {
 }
 
 function routeFromHash() {
+  const searchMatch = window.location.hash.match(/^#search\/(.*)$/);
+  if (searchMatch) {
+    let query = "";
+    try { query = decodeURIComponent(searchMatch[1]); } catch { query = searchMatch[1]; }
+    showSearch(query);
+    return;
+  }
   const match = window.location.hash.match(/^#(detail|watch)\/(\d+)/);
   const movie = match && movies.find(item => item.id === Number(match[2]));
   if (movie && match[1] === "detail") showDetail(movie);
@@ -207,6 +238,7 @@ function routeFromHash() {
     document.querySelector("#home").hidden = false;
     document.querySelector("#detail-view").hidden = true;
     document.querySelector("#watch-view").hidden = true;
+    document.querySelector("#search-view").hidden = true;
     document.querySelector("#site-footer").hidden = false;
     if (player) player.src = "";
     activeMovie = null;
@@ -238,6 +270,11 @@ document.querySelectorAll("[data-nav-year]").forEach(link => link.addEventListen
   link.closest("details")?.removeAttribute("open");
 }));
 searchInput.addEventListener("input", renderMovies);
+document.querySelector("#search-form").addEventListener("submit", event => {
+  event.preventDefault();
+  const query = searchInput.value.trim();
+  if (query) window.location.hash = `search/${encodeURIComponent(query)}`;
+});
 sortSelect.addEventListener("change", renderMovies);
 function setFeatured(index) {
   activeFeatured = (index + movies.length) % movies.length;
