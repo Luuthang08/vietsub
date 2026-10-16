@@ -1026,8 +1026,7 @@ footer > a:last-child {
   color: #fff;
 }
 .server-external {
-  margin-left: auto;
-  color: #ff9aa8;
+  display: none;
 }
 .episode-servers {
   grid-column: 1 / -1;
