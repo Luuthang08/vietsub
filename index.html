@@ -1,122 +1,501 @@
-<!DOCTYPE html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="TLvietsub — khám phá phim tình cảm nam và series châu Á.">
-  <meta name="theme-color" content="#101014">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title>TLvietsub — Phim BL & Đam Mỹ</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="/app.js"></script>
-</head>
-<body>
-  <header class="site-header">
-    <a class="brand" href="#home" aria-label="TLvietsub trang chủ"><span class="brand-mark">TL</span><span>TLvietsub <small>Phim BL &amp; Đam Mỹ</small></span></a>
-    <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Mở menu" aria-expanded="false">☰</button>
-    <nav class="main-nav" id="main-nav">
-      <a class="active" href="#home">Trang chủ</a>
-      <details class="nav-dropdown"><summary>Thể loại</summary><div class="dropdown-menu"><a href="#latest" data-nav-genre="all">Tất cả phim</a><a href="#latest" data-nav-genre="Thái Lan">Series Thái Lan</a><a href="#latest">Tình cảm</a><a href="#latest">Học đường</a></div></details>
-      <details class="nav-dropdown"><summary>Quốc gia</summary><div class="dropdown-menu"><a href="#latest" data-nav-genre="Thái Lan">Thái Lan</a><a href="#latest" data-nav-genre="all">Tất cả quốc gia</a></div></details>
-      <details class="nav-dropdown"><summary>Phim theo năm</summary><div class="dropdown-menu"><a href="#latest" data-nav-year="2023">2023</a><a href="#latest" data-nav-year="2022">2022</a><a href="#latest" data-nav-year="all">Tất cả năm</a></div></details>
-      <a href="#series">Phim mới</a><a href="#about">Giới thiệu</a>
-    </nav>
-    <form class="search-box" id="search-form" role="search"><input id="search" type="search" placeholder="Tìm phim, diễn viên..." aria-label="Tìm phim, diễn viên"><button type="submit" aria-label="Tìm kiếm">⌕</button></form>
-  </header>
-
-  <main id="home">
-    <section class="hero" aria-label="Phim nổi bật">
-      <button class="hero-arrow hero-prev" type="button" aria-label="Phim nổi bật trước">‹</button><button class="hero-arrow hero-next" type="button" aria-label="Phim nổi bật tiếp theo">›</button>
-      <img class="hero-backdrop" id="hero-backdrop" alt="" aria-hidden="true">
-      <div class="hero-shade"></div>
-      <div class="hero-content">
-        <p class="eyebrow"><span class="live-dot"></span> PHIM BL ĐƯỢC YÊU THÍCH</p>
-        <p class="hero-kicker">SERIES THÁI LAN · TÌNH CẢM</p>
-        <h1 id="hero-title">Love in the Air</h1>
-        <p class="hero-description">Rain gặp Phayu, còn Sky vướng vào một mối quan hệ bất ngờ với Prapai. Bốn phần đầu tiên của tập 1 có thể xem ngay trên trang.</p>
-        <div class="hero-meta"><span>2022</span><i></i><span>13 tập</span><i></i><span>45 phút / tập</span><i></i><span class="quality">HD</span></div>
-        <button class="primary-button" type="button" data-featured-watch>▶ &nbsp; Khám phá phim</button>
-      </div>
-      <div class="hero-pagination" id="hero-pagination" aria-label="Chọn phim nổi bật"></div>
-    </section>
-
-    <section class="content-section" id="latest">
-      <div class="section-title-row">
-        <div><p class="eyebrow">CẬP NHẬT MỖI TUẦN</p><h2>Phim mới cập nhật</h2></div>
-        <a class="text-link" href="#series">Xem tất cả <span>→</span></a>
-      </div>
-      <div class="filter-row" aria-label="Lọc danh sách phim">
-        <div class="filter-chips" id="genre-filters">
-          <button class="chip selected" data-genre="all" type="button">Tất cả</button>
-          <button class="chip" data-genre="Thái Lan" type="button">Thái Lan</button>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TLvietsub — khám phá phim tình cảm nam và series châu Á.">
+    <meta name="theme-color" content="#101014">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>
+      TLvietsub — Phim BL & Đam Mỹ
+    </title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="/app.js">
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="TLvietsub trang chủ">
+        <span class="brand-mark">
+          TL
+        </span>
+        <span>
+          TLvietsub
+          <small>
+            Phim BL & Đam Mỹ
+          </small>
+        </span>
+      </a>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Mở menu" aria-expanded="false">
+        ☰
+      </button>
+      <nav class="main-nav" id="main-nav">
+        <a class="active" href="#home">
+          Trang chủ
+        </a>
+        <details class="nav-dropdown">
+          <summary>
+            Thể loại
+          </summary>
+          <div class="dropdown-menu">
+            <a href="#latest" data-nav-genre="all">
+              Tất cả phim
+            </a>
+            <a href="#latest" data-nav-genre="Thái Lan">
+              Series Thái Lan
+            </a>
+            <a href="#latest">
+              Tình cảm
+            </a>
+            <a href="#latest">
+              Học đường
+            </a>
+          </div>
+        </details>
+        <details class="nav-dropdown">
+          <summary>
+            Quốc gia
+          </summary>
+          <div class="dropdown-menu">
+            <a href="#latest" data-nav-genre="Thái Lan">
+              Thái Lan
+            </a>
+            <a href="#latest" data-nav-genre="all">
+              Tất cả quốc gia
+            </a>
+          </div>
+        </details>
+        <details class="nav-dropdown">
+          <summary>
+            Phim theo năm
+          </summary>
+          <div class="dropdown-menu">
+            <a href="#latest" data-nav-year="2023">
+              2023
+            </a>
+            <a href="#latest" data-nav-year="2022">
+              2022
+            </a>
+            <a href="#latest" data-nav-year="all">
+              Tất cả năm
+            </a>
+          </div>
+        </details>
+        <a href="#series">
+          Phim mới
+        </a>
+        <a href="#about">
+          Giới thiệu
+        </a>
+      </nav>
+      <form class="search-box" id="search-form" role="search">
+        <input id="search" type="search" placeholder="Tìm phim, diễn viên..." aria-label="Tìm phim, diễn viên">
+        <button type="submit" aria-label="Tìm kiếm">
+          ⌕
+        </button>
+      </form>
+    </header>
+    <main id="home">
+      <section class="hero" aria-label="Phim nổi bật">
+        <button class="hero-arrow hero-prev" type="button" aria-label="Phim nổi bật trước">
+          ‹
+        </button>
+        <button class="hero-arrow hero-next" type="button" aria-label="Phim nổi bật tiếp theo">
+          ›
+        </button>
+        <img class="hero-backdrop" id="hero-backdrop" alt="" aria-hidden="true">
+        <div class="hero-shade">
         </div>
-        <select id="sort" aria-label="Sắp xếp phim"><option value="updated">Mới cập nhật</option><option value="year">Phim theo năm</option><option value="title">Tên phim A–Z</option></select>
-      </div>
-      <div id="movie-list" class="movie-grid"></div>
-      <p id="empty-message" class="empty-message" hidden>Chưa tìm thấy phim phù hợp. Thử đổi từ khóa hoặc bộ lọc nhé.</p>
-    </section>
-
-    <section class="lower-layout" id="series">
-      <div class="content-section all-series">
-        <div class="section-title-row"><div><p class="eyebrow">THƯ VIỆN TLVIETSUB</p><h2>Được yêu thích</h2></div></div>
-        <div class="featured-list" id="popular-list"></div>
-      </div>
-      <aside class="sidebar">
-        <div class="side-panel">
-          <p class="eyebrow">ĐANG ĐƯỢC QUAN TÂM</p>
-          <h3>Thể loại nổi bật</h3>
-          <div class="genre-list">
-            <a href="#latest" data-side-genre="Thái Lan"><span>Series Thái Lan</span><b>04</b></a>
+        <div class="hero-content">
+          <p class="eyebrow">
+            <span class="live-dot">
+            </span>
+             PHIM BL ĐƯỢC YÊU THÍCH
+          </p>
+          <p class="hero-kicker">
+            SERIES THÁI LAN · TÌNH CẢM
+          </p>
+          <h1 id="hero-title">
+            Love in the Air
+          </h1>
+          <p class="hero-description">
+            Rain gặp Phayu, còn Sky vướng vào một mối quan hệ bất ngờ với Prapai. Bốn phần đầu tiên của tập 1 có thể xem ngay trên trang.
+          </p>
+          <div class="hero-meta">
+            <span>
+              2022
+            </span>
+            <i>
+            </i>
+            <span>
+              13 tập
+            </span>
+            <i>
+            </i>
+            <span>
+              45 phút / tập
+            </span>
+            <i>
+            </i>
+            <span class="quality">
+              HD
+            </span>
+          </div>
+          <button class="primary-button" type="button" data-featured-watch>
+            ▶   Khám phá phim
+          </button>
+        </div>
+        <div class="hero-pagination" id="hero-pagination" aria-label="Chọn phim nổi bật">
+        </div>
+      </section>
+      <section class="content-section" id="latest">
+        <div class="section-title-row">
+          <div>
+            <p class="eyebrow">
+              CẬP NHẬT MỖI TUẦN
+            </p>
+            <h2>
+              Phim mới cập nhật
+            </h2>
+          </div>
+          <a class="text-link" href="#series">
+            Xem tất cả
+            <span>
+              →
+            </span>
+          </a>
+        </div>
+        <div class="filter-row" aria-label="Lọc danh sách phim">
+          <div class="filter-chips" id="genre-filters">
+            <button class="chip selected" data-genre="all" type="button">
+              Tất cả
+            </button>
+            <button class="chip" data-genre="Thái Lan" type="button">
+              Thái Lan
+            </button>
+          </div>
+          <select id="sort" aria-label="Sắp xếp phim">
+            <option value="updated">
+              Mới cập nhật
+            </option>
+            <option value="year">
+              Phim theo năm
+            </option>
+            <option value="title">
+              Tên phim A–Z
+            </option>
+          </select>
+        </div>
+        <div id="movie-list" class="movie-grid">
+        </div>
+        <p id="empty-message" class="empty-message" hidden>
+          Chưa tìm thấy phim phù hợp. Thử đổi từ khóa hoặc bộ lọc nhé.
+        </p>
+      </section>
+      <section class="lower-layout" id="series">
+        <div class="content-section all-series">
+          <div class="section-title-row">
+            <div>
+              <p class="eyebrow">
+                THƯ VIỆN TLVIETSUB
+              </p>
+              <h2>
+                Được yêu thích
+              </h2>
+            </div>
+          </div>
+          <div class="featured-list" id="popular-list">
           </div>
         </div>
-        <div class="side-note" id="about"><span class="note-icon">✦</span><h3>Góc phim TLvietsub</h3><p>Không gian khám phá những câu chuyện tình cảm nam đa dạng từ khắp châu Á.</p></div>
-      </aside>
-    </section>
-  </main>
-
-  <main id="detail-view" class="subpage" hidden>
-    <section class="detail-hero" id="detail-hero">
-      <img class="detail-backdrop" id="detail-backdrop-image" alt="" aria-hidden="true"><div class="detail-shade"></div>
-      <div class="detail-breadcrumb"><a href="#home">Trang chủ</a><span>›</span><span id="detail-breadcrumb-title">Phim</span></div>
-      <div class="detail-layout">
-        <div class="detail-copy"><h1 id="detail-title">Tên phim</h1><p class="detail-english" id="detail-english"></p><p class="detail-description" id="detail-description"></p>
-          <dl class="detail-facts"><div><dt>Thể loại</dt><dd id="detail-genre"></dd></div><div><dt>Quốc gia</dt><dd id="detail-country"></dd></div><div><dt>Năm phát hành</dt><dd id="detail-year"></dd></div><div><dt>Trạng thái</dt><dd id="detail-status"></dd></div><div><dt>Số tập</dt><dd id="detail-episodes"></dd></div><div><dt>Thời lượng</dt><dd id="detail-runtime"></dd></div></dl>
-        </div>
-        <div class="detail-play-area"><button class="detail-play" id="detail-play" type="button" aria-label="Xem phim">▶</button><span> Xem phim</span></div>
-      </div>
-    </section>
-    <section class="recommendations content-section"><div class="section-title-row"><div><p class="eyebrow">GỢI Ý CHO BẠN</p><h2>Nhiều người cùng xem</h2></div></div><div class="movie-grid" id="recommendation-list"></div></section>
-  </main>
-
-  <main id="watch-view" class="subpage watch-page" hidden>
-    <div class="watch-breadcrumb"><a href="#home">Trang chủ</a><span>›</span><a id="watch-back-detail" href="#">Thông tin phim</a><span>›</span><span id="watch-breadcrumb-episode">Đang xem</span></div>
-    <div class="watch-columns">
-      <section class="watch-main-column">
-        <div class="watch-player-shell"><iframe id="movie-player" title="Trình phát phim" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="origin" allowfullscreen></iframe></div>
-        <div class="watch-toolbar"><button type="button" id="report-video">Báo lỗi</button><button type="button" id="toggle-lights" aria-pressed="false">Tắt đèn</button><button type="button" id="share-watch">Chia sẻ</button></div>
-        <div class="server-row"><span class="server-label">Nguồn phát</span><button class="server-button active" type="button">YouTube chính thức</button><a id="source-link" class="server-external" target="_blank" rel="noopener noreferrer">Mở video ↗</a></div>
-        <div class="episode-servers" id="episode-servers" aria-label="Danh sách tập phim"></div>
-        <div class="episode-row"><div><p class="eyebrow">ĐANG PHÁT</p><h1 id="watch-title">Tên phim</h1></div><span class="current-episode" id="current-episode"></span></div>
-        <div class="watch-details"><p id="watch-description"></p><div class="watch-tags" id="watch-meta"></div><button class="back-detail-button" id="back-detail-button" type="button">← Quay lại thông tin phim</button></div>
+        <aside class="sidebar">
+          <div class="side-panel">
+            <p class="eyebrow">
+              ĐANG ĐƯỢC QUAN TÂM
+            </p>
+            <h3>
+              Thể loại nổi bật
+            </h3>
+            <div class="genre-list">
+              <a href="#latest" data-side-genre="Thái Lan">
+                <span>
+                  Series Thái Lan
+                </span>
+                <b>
+                  04
+                </b>
+              </a>
+            </div>
+          </div>
+          <div class="side-note" id="about">
+            <span class="note-icon">
+              ✦
+            </span>
+            <h3>
+              Góc phim TLvietsub
+            </h3>
+            <p>
+              Không gian khám phá những câu chuyện tình cảm nam đa dạng từ khắp châu Á.
+            </p>
+          </div>
+        </aside>
       </section>
-      <aside class="comments-panel"><h2>💬 Bình luận <span id="comment-count">(0)</span></h2><p class="comments-intro">Chia sẻ cảm nhận của bạn về bộ phim.</p><form id="comment-form"><label for="comment-name">Tên hiển thị</label><input id="comment-name" maxlength="40" placeholder="Tên của bạn" required><label for="comment-text">Viết bình luận</label><textarea id="comment-text" rows="4" maxlength="500" placeholder="Nhập bình luận..." required></textarea><button class="primary-button" type="submit">Gửi bình luận</button></form><div id="comment-list" class="comment-list"></div></aside>
-    </div>
-    <section class="watch-recommendations content-section"><div class="section-title-row"><div><p class="eyebrow">GỢI Ý CHO BẠN</p><h2>Nhiều người cùng xem</h2></div></div><div class="movie-grid" id="watch-recommendation-list"></div></section>
-  </main>
-  <main id="search-view" class="subpage search-page" hidden>
-    <div class="search-breadcrumb"><a href="#home">Trang chủ</a><span>›</span><span>Kết quả tìm kiếm về <b id="search-breadcrumb-query"></b></span></div>
-    <h1 class="search-results-title">KẾT QUẢ TÌM KIẾM VỀ <span id="search-heading-query"></span></h1>
-    <p class="search-results-count" id="search-results-count"></p>
-    <div class="search-results-grid" id="search-results-grid"></div>
-    <p id="search-empty" class="search-empty" hidden>Không tìm thấy phim phù hợp với từ khóa này.</p>
-  </main>
-  <footer id="site-footer"><a class="brand footer-brand" href="#home"><span class="brand-mark">TL</span><span>vietsub</span></a><p>TLvietsub · Khám phá những câu chuyện đáng nhớ.</p><a href="#home">Lên đầu trang ↑</a></footer>
-  <script>
-    if (window.location.protocol === "file:") {
+    </main>
+    <main id="detail-view" class="subpage" hidden>
+      <section class="detail-hero" id="detail-hero">
+        <img class="detail-backdrop" id="detail-backdrop-image" alt="" aria-hidden="true">
+        <div class="detail-shade">
+        </div>
+        <div class="detail-breadcrumb">
+          <a href="#home">
+            Trang chủ
+          </a>
+          <span>
+            ›
+          </span>
+          <span id="detail-breadcrumb-title">
+            Phim
+          </span>
+        </div>
+        <div class="detail-layout">
+          <div class="detail-copy">
+            <h1 id="detail-title">
+              Tên phim
+            </h1>
+            <p class="detail-english" id="detail-english">
+            </p>
+            <p class="detail-description" id="detail-description">
+            </p>
+            <dl class="detail-facts">
+              <div>
+                <dt>
+                  Thể loại
+                </dt>
+                <dd id="detail-genre">
+                </dd>
+              </div>
+              <div>
+                <dt>
+                  Quốc gia
+                </dt>
+                <dd id="detail-country">
+                </dd>
+              </div>
+              <div>
+                <dt>
+                  Năm phát hành
+                </dt>
+                <dd id="detail-year">
+                </dd>
+              </div>
+              <div>
+                <dt>
+                  Trạng thái
+                </dt>
+                <dd id="detail-status">
+                </dd>
+              </div>
+              <div>
+                <dt>
+                  Số tập
+                </dt>
+                <dd id="detail-episodes">
+                </dd>
+              </div>
+              <div>
+                <dt>
+                  Thời lượng
+                </dt>
+                <dd id="detail-runtime">
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <div class="detail-play-area">
+            <button class="detail-play" id="detail-play" type="button" aria-label="Xem phim">
+              ▶
+            </button>
+            <span>
+               Xem phim
+            </span>
+          </div>
+        </div>
+      </section>
+      <section class="recommendations content-section">
+        <div class="section-title-row">
+          <div>
+            <p class="eyebrow">
+              GỢI Ý CHO BẠN
+            </p>
+            <h2>
+              Nhiều người cùng xem
+            </h2>
+          </div>
+        </div>
+        <div class="movie-grid" id="recommendation-list">
+        </div>
+      </section>
+    </main>
+    <main id="watch-view" class="subpage watch-page" hidden>
+      <div class="watch-breadcrumb">
+        <a href="#home">
+          Trang chủ
+        </a>
+        <span>
+          ›
+        </span>
+        <a id="watch-back-detail" href="#">
+          Thông tin phim
+        </a>
+        <span>
+          ›
+        </span>
+        <span id="watch-breadcrumb-episode">
+          Đang xem
+        </span>
+      </div>
+      <div class="watch-columns">
+        <section class="watch-main-column">
+          <div class="watch-player-shell">
+            <iframe id="movie-player" title="Trình phát phim" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="origin" allowfullscreen>
+            </iframe>
+          </div>
+          <div class="watch-toolbar">
+            <button type="button" id="report-video">
+              Báo lỗi
+            </button>
+            <button type="button" id="toggle-lights" aria-pressed="false">
+              Tắt đèn
+            </button>
+            <button type="button" id="share-watch">
+              Chia sẻ
+            </button>
+          </div>
+          <div class="server-row">
+            <span class="server-label">
+              Nguồn phát
+            </span>
+            <button class="server-button active" type="button">
+              YouTube chính thức
+            </button>
+            <a id="source-link" class="server-external" target="_blank" rel="noopener noreferrer">
+              Mở video ↗
+            </a>
+          </div>
+          <div class="episode-servers" id="episode-servers" aria-label="Danh sách tập phim">
+          </div>
+          <div class="episode-row">
+            <div>
+              <p class="eyebrow">
+                ĐANG PHÁT
+              </p>
+              <h1 id="watch-title">
+                Tên phim
+              </h1>
+            </div>
+            <span class="current-episode" id="current-episode">
+            </span>
+          </div>
+          <div class="watch-details">
+            <p id="watch-description">
+            </p>
+            <div class="watch-tags" id="watch-meta">
+            </div>
+            <button class="back-detail-button" id="back-detail-button" type="button">
+              ← Quay lại thông tin phim
+            </button>
+          </div>
+        </section>
+        <aside class="comments-panel">
+          <h2>
+            💬 Bình luận
+            <span id="comment-count">
+              (0)
+            </span>
+          </h2>
+          <p class="comments-intro">
+            Chia sẻ cảm nhận của bạn về bộ phim.
+          </p>
+          <form id="comment-form">
+            <label for="comment-name">
+              Tên hiển thị
+            </label>
+            <input id="comment-name" maxlength="40" placeholder="Tên của bạn" required>
+            <label for="comment-text">
+              Viết bình luận
+            </label>
+            <textarea id="comment-text" rows="4" maxlength="500" placeholder="Nhập bình luận..." required>
+            </textarea>
+            <button class="primary-button" type="submit">
+              Gửi bình luận
+            </button>
+          </form>
+          <div id="comment-list" class="comment-list">
+          </div>
+        </aside>
+      </div>
+      <section class="watch-recommendations content-section">
+        <div class="section-title-row">
+          <div>
+            <p class="eyebrow">
+              GỢI Ý CHO BẠN
+            </p>
+            <h2>
+              Nhiều người cùng xem
+            </h2>
+          </div>
+        </div>
+        <div class="movie-grid" id="watch-recommendation-list">
+        </div>
+      </section>
+    </main>
+    <main id="search-view" class="subpage search-page" hidden>
+      <div class="search-breadcrumb">
+        <a href="#home">
+          Trang chủ
+        </a>
+        <span>
+          ›
+        </span>
+        <span>
+          Kết quả tìm kiếm về
+          <b id="search-breadcrumb-query">
+          </b>
+        </span>
+      </div>
+      <h1 class="search-results-title">
+        KẾT QUẢ TÌM KIẾM VỀ &#32;
+        <span id="search-heading-query">
+        </span>
+      </h1>
+      <p class="search-results-count" id="search-results-count">
+      </p>
+      <div class="search-results-grid" id="search-results-grid">
+      </div>
+      <p id="search-empty" class="search-empty" hidden>
+        Không tìm thấy phim phù hợp với từ khóa này.
+      </p>
+    </main>
+    <footer id="site-footer">
+      <a class="brand footer-brand" href="#home">
+        <span class="brand-mark">
+          TL
+        </span>
+        <span>
+          vietsub
+        </span>
+      </a>
+      <p>
+        TLvietsub · Khám phá những câu chuyện đáng nhớ.
+      </p>
+      <a href="#home">
+        Lên đầu trang ↑
+      </a>
+    </footer>
+    <script>
+       if (window.location.protocol === "file:") {
       const localPreviewScript = document.createElement("script");
       localPreviewScript.src = "./app.js";
       document.body.append(localPreviewScript);
     }
-  </script>
-</body>
+    </script>
+  </body>
 </html>
