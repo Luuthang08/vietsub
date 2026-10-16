@@ -291,6 +291,12 @@ document.querySelectorAll("[data-nav-year]").forEach(link => link.addEventListen
   renderMovies();
   link.closest("details")?.removeAttribute("open");
 }));
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  document.querySelectorAll(".nav-dropdown").forEach(dropdown => {
+    dropdown.addEventListener("mouseenter", () => dropdown.setAttribute("open", ""));
+    dropdown.addEventListener("mouseleave", () => dropdown.removeAttribute("open"));
+  });
+}
 searchInput.addEventListener("input", renderMovies);
 document.querySelector("#search-form").addEventListener("submit", event => {
   event.preventDefault();
