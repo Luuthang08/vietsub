@@ -966,7 +966,8 @@ footer > a:last-child {
   display: contents;
 }
 .watch-toolbar {
-  grid-column: 1 / -1;
+  grid-column: 1;
+  grid-row: 3;
   display: flex;
   justify-content: center;
   gap: 8px;
@@ -985,10 +986,10 @@ footer > a:last-child {
   background: #454047;
 }
 .watch-player-shell {
-  grid-column: 1 / -1;
+  grid-column: 1;
+  grid-row: 1 / span 2;
   width: 100%;
-  aspect-ratio: 16 / 8.6;
-  max-height: calc(100vh - 145px);
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #000;
 }
@@ -999,7 +1000,8 @@ footer > a:last-child {
   border: 0;
 }
 .server-row {
-  grid-column: 1 / -1;
+  grid-column: 1;
+  grid-row: 4;
   display: flex;
   min-height: 46px;
   align-items: center;
@@ -1029,11 +1031,12 @@ footer > a:last-child {
   display: none;
 }
 .episode-servers {
-  grid-column: 1 / -1;
+  grid-column: 2;
+  grid-row: 2;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 6px 0 12px;
+  gap: 12px;
+  padding: 8px 0 12px;
 }
 .episode-server-group h2 {
   margin: 0 0 9px;
@@ -1045,14 +1048,14 @@ footer > a:last-child {
 }
 .episode-buttons {
   display: grid;
-  grid-template-columns: repeat(9,minmax(64px,1fr));
+  grid-template-columns: repeat(4,minmax(0,1fr));
   gap: 9px;
 }
 .episode-picker-buttons {
-  grid-template-columns: repeat(7,minmax(64px,1fr));
+  grid-template-columns: repeat(4,minmax(0,1fr));
 }
 .part-picker-group .episode-buttons {
-  grid-template-columns: repeat(4,minmax(64px,1fr));
+  grid-template-columns: repeat(4,minmax(0,1fr));
 }
 .episode-availability-note {
   margin: 8px 0 0;
@@ -1077,7 +1080,8 @@ footer > a:last-child {
   color: white;
 }
 .episode-row {
-  grid-column: 1;
+  grid-column: 2;
+  grid-row: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1113,7 +1117,8 @@ footer > a:last-child {
   font-size: 11px;
 }
 .watch-details {
-  grid-column: 1;
+  grid-column: 2;
+  grid-row: 3;
   padding: 8px 0;
 }
 .watch-details > p {
@@ -1141,10 +1146,10 @@ footer > a:last-child {
 }
 .comments-panel {
   grid-column: 2;
-  grid-row: 6 / span 2;
-  align-self: start;
+  grid-row: 4;
+  align-self: stretch;
   min-height: 260px;
-  margin-top: 16px;
+  margin-top: 8px;
   padding: 18px;
   border: 1px solid #39363e;
   border-radius: 4px;
