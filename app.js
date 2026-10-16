@@ -19,7 +19,7 @@ const searchInput = document.querySelector("#search");
 const sortSelect = document.querySelector("#sort");
 const emptyMessage = document.querySelector("#empty-message");
 const player = document.querySelector("#movie-player");
-const episodeSelect = document.querySelector("#episode-select");
+const episodeServers = document.querySelector("#episode-servers");
 let activeGenre = "all";
 let activeMovie = null;
 let activeYear = "all";
@@ -89,6 +89,7 @@ function openMovie(movie) {
 
 function showDetail(movie) {
   activeMovie = movie;
+  player.src = "";
   document.querySelector("#home").hidden = true;
   document.querySelector("#detail-view").hidden = false;
   document.querySelector("#watch-view").hidden = true;
@@ -111,13 +112,25 @@ function showDetail(movie) {
   window.scrollTo(0, 0);
 }
 
-function makeEpisodeOptions(movie) {
-  return movie.episodes.map((episode, index) => {
-    const option = document.createElement("option");
-    option.value = String(index);
-    option.textContent = episode.label;
-    return option;
+function renderEpisodeButtons(movie) {
+  const group = document.createElement("section");
+  group.className = "episode-server-group";
+  const heading = document.createElement("h2");
+  heading.textContent = "# SERVER YOUTUBE CHÍNH THỨC";
+  const buttons = document.createElement("div");
+  buttons.className = "episode-buttons";
+  movie.episodes.forEach((episode, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "episode-button";
+    button.textContent = String(index + 1).padStart(2, "0");
+    button.title = episode.label;
+    button.setAttribute("aria-label", episode.label);
+    button.addEventListener("click", () => playEpisode(index));
+    buttons.append(button);
   });
+  group.append(heading, buttons);
+  episodeServers.replaceChildren(group);
 }
 
 function showWatch(movie) {
@@ -131,7 +144,11 @@ function showWatch(movie) {
   document.querySelector("#watch-description").textContent = movie.description;
   document.querySelector("#watch-meta").textContent = `${movie.country} · ${movie.year} · ${movie.genre} · ${movie.runtime}`;
   document.querySelector("#watch-back-detail").href = `#detail/${movie.id}`;
-  episodeSelect.replaceChildren(...makeEpisodeOptions(movie));
+  renderEpisodeButtons(movie);
+  const recommendations = movies.filter(item => item.id !== movie.id);
+  document.querySelector("#watch-recommendation-list").replaceChildren(...recommendations.map(movieCard));
+  document.querySelector("#watch-view").classList.remove("lights-out");
+  document.querySelector("#toggle-lights").setAttribute("aria-pressed", "false");
   renderComments(movie);
   playEpisode(0);
   window.scrollTo(0, 0);
@@ -154,7 +171,11 @@ function playEpisode(index) {
   player.title = `${activeMovie.title} — ${episode.label}`;
   document.querySelector("#source-link").href = `https://www.youtube.com/watch?v=${episode.videoId}`;
   document.querySelector("#watch-breadcrumb-episode").textContent = episode.label;
-  episodeSelect.value = String(index);
+  document.querySelector("#current-episode").textContent = episode.label;
+  episodeServers.querySelectorAll(".episode-button").forEach((button, buttonIndex) => {
+    button.classList.toggle("active", buttonIndex === index);
+    button.setAttribute("aria-pressed", String(buttonIndex === index));
+  });
 }
 
 function renderComments(movie) {
@@ -242,7 +263,22 @@ document.querySelector(".hero-next").addEventListener("click", () => setFeatured
 document.querySelector("[data-featured-watch]").addEventListener("click", () => openMovie(movies[activeFeatured]));
 document.querySelector("#detail-play").addEventListener("click", () => activeMovie && (window.location.hash = `watch/${activeMovie.id}`));
 document.querySelector("#back-detail-button").addEventListener("click", () => activeMovie && (window.location.hash = `detail/${activeMovie.id}`));
-episodeSelect.addEventListener("change", () => playEpisode(Number(episodeSelect.value)));
+document.querySelector("#report-video").addEventListener("click", () => window.alert("Nếu video không phát, hãy thử chọn tập khác hoặc bấm “Mở video” để xem trực tiếp trên YouTube."));
+document.querySelector("#toggle-lights").addEventListener("click", event => {
+  const page = document.querySelector("#watch-view");
+  const lightsOut = page.classList.toggle("lights-out");
+  event.currentTarget.setAttribute("aria-pressed", String(lightsOut));
+  event.currentTarget.textContent = lightsOut ? "Bật đèn" : "Tắt đèn";
+});
+document.querySelector("#share-watch").addEventListener("click", async event => {
+  try {
+    await navigator.clipboard.writeText(window.location.href);
+    event.currentTarget.textContent = "Đã sao chép link";
+    window.setTimeout(() => { event.currentTarget.textContent = "Chia sẻ"; }, 1800);
+  } catch {
+    window.prompt("Sao chép liên kết phim:", window.location.href);
+  }
+});
 window.addEventListener("hashchange", routeFromHash);
 document.querySelector("#comment-form").addEventListener("submit", event => {
   event.preventDefault();
