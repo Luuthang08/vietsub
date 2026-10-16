@@ -23,6 +23,8 @@ const player = document.querySelector("#movie-player");
 const episodeSelect = document.querySelector("#episode-select");
 let activeGenre = "all";
 let activeMovie = null;
+let activeYear = "all";
+let activeFeatured = 0;
 
 function makePoster(movie, className = "poster") {
   const poster = document.createElement("div");
@@ -36,12 +38,19 @@ function makePoster(movie, className = "poster") {
 function movieCard(movie) {
   const card = document.createElement("article");
   card.className = "movie-card";
-  card.append(makePoster(movie));
+  const poster = makePoster(movie);
+  poster.classList.add("movie-cover");
+  poster.innerHTML += `<span class="cover-badge">${movie.episodeLabel}</span><span class="cover-play" aria-hidden="true">▶</span>`;
+  card.append(poster);
   const body = document.createElement("div");
   body.className = "movie-info";
-  body.innerHTML = `<div class="card-meta"><span class="episode-tag">${movie.episodeLabel}</span><span class="hd-tag">HD</span></div><h3>${movie.title}</h3><p class="sub-title">${movie.english}</p><p class="movie-description">${movie.description}</p><div class="card-bottom"><span>${movie.country} <i>·</i> ${movie.year}</span><button type="button" class="watch-button">Xem phim <span>→</span></button></div>`;
-  body.querySelector(".watch-button").addEventListener("click", () => openMovie(movie));
+  body.innerHTML = `<h3>${movie.title}</h3><p class="sub-title">${movie.country} <i>·</i> ${movie.year}</p>`;
   card.append(body);
+  card.tabIndex = 0;
+  card.setAttribute("role", "button");
+  card.setAttribute("aria-label", `Xem phim ${movie.title}`);
+  card.addEventListener("click", () => openMovie(movie));
+  card.addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openMovie(movie); } });
   return card;
 }
 
@@ -49,7 +58,7 @@ function renderMovies() {
   const keyword = searchInput.value.trim().toLocaleLowerCase("vi");
   const filtered = movies.filter(movie => {
     const searchable = `${movie.title} ${movie.english} ${movie.country} ${movie.genre}`.toLocaleLowerCase("vi");
-    return searchable.includes(keyword) && (activeGenre === "all" || movie.country === activeGenre);
+    return searchable.includes(keyword) && (activeGenre === "all" || movie.country === activeGenre) && (activeYear === "all" || String(movie.year) === activeYear);
   });
   const sortBy = sortSelect.value;
   if (sortBy === "year") filtered.sort((a, b) => b.year - a.year);
@@ -118,9 +127,41 @@ document.querySelectorAll("[data-side-genre]").forEach(link => link.addEventList
   document.querySelectorAll("#genre-filters .chip").forEach(button => button.classList.toggle("selected", button.dataset.genre === activeGenre));
   renderMovies();
 }));
+document.querySelectorAll("[data-nav-genre]").forEach(link => link.addEventListener("click", () => {
+  activeGenre = link.dataset.navGenre;
+  document.querySelectorAll("#genre-filters .chip").forEach(button => button.classList.toggle("selected", button.dataset.genre === activeGenre));
+  renderMovies();
+  link.closest("details")?.removeAttribute("open");
+}));
+document.querySelectorAll("[data-nav-year]").forEach(link => link.addEventListener("click", () => {
+  activeYear = link.dataset.navYear;
+  renderMovies();
+  link.closest("details")?.removeAttribute("open");
+}));
 searchInput.addEventListener("input", renderMovies);
 sortSelect.addEventListener("change", renderMovies);
-document.querySelector("[data-featured-watch]").addEventListener("click", () => openMovie(movies[0]));
+function setFeatured(index) {
+  activeFeatured = (index + movies.length) % movies.length;
+  const movie = movies[activeFeatured];
+  document.querySelector("#hero-title").textContent = movie.title;
+  document.querySelector(".hero-description").textContent = movie.description;
+  document.querySelector(".hero-kicker").textContent = `${movie.country.toUpperCase()} · ${movie.year} · ${movie.genre.toUpperCase()}`;
+  document.querySelector(".hero-meta").innerHTML = `<span>${movie.year}</span><i></i><span>${movie.episodeLabel}</span><i></i><span>${movie.runtime}</span><i></i><span class="quality">HD</span>`;
+  document.querySelector(".hero").style.setProperty("--hero-a", movie.colors[0]);
+  document.querySelector(".hero").style.setProperty("--hero-b", movie.colors[1]);
+  document.querySelectorAll("#hero-pagination button").forEach((dot, dotIndex) => dot.classList.toggle("selected", dotIndex === activeFeatured));
+}
+const pagination = document.querySelector("#hero-pagination");
+movies.forEach((movie, index) => {
+  const dot = document.createElement("button");
+  dot.type = "button";
+  dot.setAttribute("aria-label", `Hiện ${movie.title}`);
+  dot.addEventListener("click", () => setFeatured(index));
+  pagination.append(dot);
+});
+document.querySelector(".hero-prev").addEventListener("click", () => setFeatured(activeFeatured - 1));
+document.querySelector(".hero-next").addEventListener("click", () => setFeatured(activeFeatured + 1));
+document.querySelector("[data-featured-watch]").addEventListener("click", () => openMovie(movies[activeFeatured]));
 document.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
 episodeSelect.addEventListener("change", () => playEpisode(Number(episodeSelect.value)));
 dialog.addEventListener("close", () => { player.src = ""; activeMovie = null; });
@@ -134,3 +175,4 @@ document.querySelector("#menu-toggle").addEventListener("click", event => {
 document.querySelectorAll("#main-nav a").forEach(link => link.addEventListener("click", () => document.querySelector("#main-nav").classList.remove("open")));
 
 renderMovies();
+setFeatured(0);
