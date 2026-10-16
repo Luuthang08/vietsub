@@ -20,6 +20,8 @@ const sortSelect = document.querySelector("#sort");
 const emptyMessage = document.querySelector("#empty-message");
 const player = document.querySelector("#movie-player");
 const episodeServers = document.querySelector("#episode-servers");
+const heroBackdrop = document.querySelector("#hero-backdrop");
+const detailBackdrop = document.querySelector("#detail-backdrop-image");
 let activeGenre = "all";
 let activeMovie = null;
 let activeYear = "all";
@@ -31,8 +33,15 @@ function makePoster(movie, className = "poster") {
   poster.className = className;
   poster.style.setProperty("--poster-a", movie.colors[0]);
   poster.style.setProperty("--poster-b", movie.colors[1]);
-  poster.style.setProperty("--poster-image", `url("https://i.ytimg.com/vi/${movie.episodes[0].videoId}/hqdefault.jpg")`);
-  poster.innerHTML = `<span class="poster-orbit"></span><span class="poster-copy"><small>${movie.country} · ${movie.year}</small><b>${movie.title}</b><i>${movie.english}</i></span>`;
+  const image = document.createElement("img");
+  image.className = "poster-image";
+  image.src = `https://i.ytimg.com/vi/${movie.episodes[0].videoId}/hqdefault.jpg`;
+  image.alt = `${movie.title} — ảnh phim`;
+  image.loading = "lazy";
+  image.decoding = "async";
+  image.addEventListener("error", () => { image.hidden = true; });
+  poster.append(image);
+  poster.insertAdjacentHTML("beforeend", `<span class="poster-orbit"></span><span class="poster-copy"><small>${movie.country} · ${movie.year}</small><b>${movie.title}</b><i>${movie.english}</i></span>`);
   return poster;
 }
 
@@ -41,7 +50,7 @@ function movieCard(movie) {
   card.className = "movie-card";
   const poster = makePoster(movie);
   poster.classList.add("movie-cover");
-  poster.innerHTML += `<span class="cover-badge">${movie.episodeLabel}</span><span class="cover-play" aria-hidden="true">▶</span>`;
+  poster.insertAdjacentHTML("beforeend", `<span class="cover-badge">${movie.episodeLabel}</span><span class="cover-play" aria-hidden="true">▶</span>`);
   card.append(poster);
   const body = document.createElement("div");
   body.className = "movie-info";
@@ -107,7 +116,8 @@ function showDetail(movie) {
   document.querySelector("#detail-runtime").textContent = movie.runtime;
   document.querySelector("#detail-hero").style.setProperty("--poster-a", movie.colors[0]);
   document.querySelector("#detail-hero").style.setProperty("--poster-b", movie.colors[1]);
-  document.querySelector("#detail-hero").style.setProperty("--detail-image", `url("https://i.ytimg.com/vi/${movie.episodes[0].videoId}/hqdefault.jpg")`);
+  detailBackdrop.hidden = false;
+  detailBackdrop.src = `https://i.ytimg.com/vi/${movie.episodes[0].videoId}/maxresdefault.jpg`;
   const recommendations = movies.filter(item => item.id !== movie.id);
   document.querySelector("#recommendation-list").replaceChildren(...recommendations.map(movieCard));
   window.scrollTo(0, 0);
@@ -285,6 +295,9 @@ function setFeatured(index) {
   document.querySelector(".hero-meta").innerHTML = `<span>${movie.year}</span><i></i><span>${movie.episodeLabel}</span><i></i><span>${movie.runtime}</span><i></i><span class="quality">HD</span>`;
   document.querySelector(".hero").style.setProperty("--hero-a", movie.colors[0]);
   document.querySelector(".hero").style.setProperty("--hero-b", movie.colors[1]);
+  document.querySelector(".hero").classList.add("has-backdrop");
+  heroBackdrop.hidden = false;
+  heroBackdrop.src = `https://i.ytimg.com/vi/${movie.episodes[0].videoId}/maxresdefault.jpg`;
   document.querySelectorAll("#hero-pagination button").forEach((dot, dotIndex) => dot.classList.toggle("selected", dotIndex === activeFeatured));
 }
 const pagination = document.querySelector("#hero-pagination");
@@ -337,5 +350,10 @@ document.querySelector("#menu-toggle").addEventListener("click", event => {
 document.querySelectorAll("#main-nav a").forEach(link => link.addEventListener("click", () => document.querySelector("#main-nav").classList.remove("open")));
 
 renderMovies();
+heroBackdrop.addEventListener("error", () => {
+  heroBackdrop.hidden = true;
+  document.querySelector(".hero").classList.remove("has-backdrop");
+});
+detailBackdrop.addEventListener("error", () => { detailBackdrop.hidden = true; });
 setFeatured(0);
 routeFromHash();
