@@ -1049,6 +1049,17 @@ footer > a:last-child {
   grid-template-columns: repeat(9,minmax(64px,1fr));
   gap: 9px;
 }
+.episode-picker-buttons {
+  grid-template-columns: repeat(7,minmax(64px,1fr));
+}
+.part-picker-group .episode-buttons {
+  grid-template-columns: repeat(4,minmax(64px,1fr));
+}
+.episode-availability-note {
+  margin: 8px 0 0;
+  color: #b9b2bb;
+  font-size: 12px;
+}
 .episode-button {
   min-height: 46px;
   border: 1px solid transparent;

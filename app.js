@@ -16,6 +16,7 @@ const movies = [
       { label: "Tập 1 · Phần 3/4", videoId: "Q0R_y2mlqq4" },
       { label: "Tập 1 · Phần 4/4", videoId: "0rq4HOlEG9g" }
     ],
+    episodeGroups: [{ label: "Tập 1", startIndex: 0, partCount: 4 }],
     updated: 1,
     colors: ["#d37964", "#412e4a"],
     tag: "TẬP ĐẦU"
@@ -95,17 +96,34 @@ const movies = [
     english: "มังงะสั่งตาย",
     country: "Thái Lan",
     year: 2026,
-    episodeLabel: "Tập 1 · 4 phần",
-    runtime: "Tập 1 · 4 phần",
+    episodeLabel: "10 tập · 4 phần/tập",
+    runtime: "43 phút / tập",
     genre: "Trinh thám · Tâm lý",
     description:
-      "Họa sĩ truyện tranh Kaye bị cuốn vào vụ án mạng có hiện trường giống hệt tác phẩm của mình. Xem đủ 4 phần Tập 1 từ kênh GMMTV OFFICIAL ngay trên TLvietsub.",
+      "Họa sĩ truyện tranh Kaye bị cuốn vào vụ án mạng có hiện trường giống hệt tác phẩm của mình. Chọn tập và phần phát từ kênh GMMTV OFFICIAL ngay trên TLvietsub.",
     episodes: [
-      { label: "Tập 1 · Phần 1/4", videoId: "HkerkalES3M" },
-      { label: "Tập 1 · Phần 2/4", videoId: "XxrpsbkckYk" },
-      { label: "Tập 1 · Phần 3/4", videoId: "izoa6KNssBg" },
-      { label: "Tập 1 · Phần 4/4", videoId: "kvpoEUlbNRM" }
-    ],
+      ["HkerkalES3M", "XxrpsbkckYk", "izoa6KNssBg", "kvpoEUlbNRM"],
+      ["in0PW44z3xA", "Oeiynbko8B4", "dbQ-3obRoYQ", "m9ewobQaqLU"],
+      ["SZeK_M4rJM8", "Mg_hoqE9zDA", "zvQwFmfofLo", "ITzkJR3IQZ0"],
+      ["ebUbCCltZqg", "dWeRn5LTK5s", "uaa1E_YLono", "rr5FhbojXmc"],
+      ["aAKxNnnPzIg", "lm_cN2kRaTU", "9iDE-M9TO8g", "1gnLeuFCFMs"],
+      ["n_OT2RCBiDs", "DzZAyyIRdUk", "Bi_zjZuf3NA", "hBpaD64g3Bc"],
+      ["t2pMhWzjnzg", "P0P_8lV9q7Q", "S2xZrPGBQek", "jbuvBL2Ywuw"],
+      ["_5cFdRBKld0", "Y3u7LNj4Xo4", "FchRWR5GJmE", "PTXwevyGkZM"],
+      ["ExYAgh5vG_M", "z-wXsQmp75I", "CBt8Pil-5V4", "sTFDsZi-5tU"],
+      ["5GC5DWOmRIk", "y9a4d2hG66I", "1rRjj83N2v8", "aOuReO6Uz7g"]
+    ].flatMap((parts, episodeIndex) => parts.map((videoId, partIndex) => ({
+      label: `Tập ${episodeIndex + 1} · Phần ${partIndex + 1}/4`,
+      videoId
+    }))),
+    episodeGroups: Array.from({ length: 10 }, (_, index) => ({
+      label: `Tập ${index + 1}`,
+      startIndex: index * 4,
+      partCount: 4,
+      note: index >= 7
+        ? "Video có thể bị giới hạn vùng trên YouTube."
+        : ""
+    })),
     updated: 5,
     colors: ["#34424f", "#24212b"],
     tag: "TẬP ĐẦU"
@@ -126,6 +144,7 @@ let activeMovie = null;
 let activeYear = "all";
 let activeFeatured = 0;
 let activeEpisode = 0;
+let activeEpisodeGroup = 0;
 
 function makePoster(movie, className = "poster") {
   const poster = document.createElement("div");
@@ -236,7 +255,7 @@ function showDetail(movie) {
   document.querySelector("#detail-year").textContent = String(movie.year);
   document.querySelector("#detail-status").textContent = movie.episodeLabel;
   document.querySelector("#detail-episodes").textContent =
-    String(movie.episodes.length);
+    String(movie.episodeGroups?.length || movie.episodes.length);
   document.querySelector("#detail-runtime").textContent = movie.runtime;
   document.querySelector("#detail-hero").style.setProperty("--poster-a", movie.colors[0]);
   document.querySelector("#detail-hero").style.setProperty("--poster-b", movie.colors[1]);
@@ -249,6 +268,76 @@ function showDetail(movie) {
 }
 
 function renderEpisodeButtons(movie) {
+  if (movie.episodeGroups) {
+    const episodeGroup = document.createElement("section");
+    episodeGroup.className = "episode-server-group episode-picker-group";
+    const episodeHeading = document.createElement("h2");
+    episodeHeading.textContent = "DANH SÁCH TẬP";
+    const episodeButtons = document.createElement("div");
+    episodeButtons.className = "episode-buttons episode-picker-buttons";
+
+    const partGroup = document.createElement("section");
+    partGroup.className = "episode-server-group part-picker-group";
+    const partHeading = document.createElement("h2");
+    const partButtons = document.createElement("div");
+    partButtons.className = "episode-buttons episode-part-buttons";
+    const availabilityNote = document.createElement("p");
+    availabilityNote.className = "episode-availability-note";
+    availabilityNote.hidden = true;
+
+    const selectGroup = groupIndex => {
+      activeEpisodeGroup = groupIndex;
+      const selectedGroup = movie.episodeGroups[groupIndex];
+      episodeButtons.querySelectorAll(".episode-button").forEach((button, index) => {
+        const isActive = index === groupIndex;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+
+      partHeading.textContent = "# SERVER YOUTUBE CHÍNH THỨC";
+      availabilityNote.textContent = selectedGroup.note || "";
+      availabilityNote.hidden = !selectedGroup.note;
+      const parts = movie.episodes
+        .map((episode, index) => ({ episode, index }))
+        .slice(selectedGroup.startIndex, selectedGroup.startIndex + selectedGroup.partCount);
+      partButtons.replaceChildren(...parts.map(({ episode, index }, partIndex) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "episode-button episode-part-button";
+        button.dataset.episodeIndex = String(index);
+        button.textContent = `${partIndex + 1}/${selectedGroup.partCount}`;
+        button.title = episode.label;
+        button.setAttribute("aria-label", episode.label);
+        button.setAttribute("aria-pressed", String(index === activeEpisode));
+        button.classList.toggle("active", index === activeEpisode);
+        button.addEventListener("click", () => playEpisode(index));
+        return button;
+      }));
+    };
+
+    movie.episodeGroups.forEach((item, groupIndex) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "episode-button episode-select-button";
+      button.textContent = item.label;
+      button.title = item.note || item.label;
+      button.setAttribute("aria-label", item.note ? `${item.label}. ${item.note}` : item.label);
+      button.setAttribute("aria-pressed", String(groupIndex === activeEpisodeGroup));
+      button.classList.toggle("active", groupIndex === activeEpisodeGroup);
+      button.addEventListener("click", () => {
+        selectGroup(groupIndex);
+        playEpisode(item.startIndex);
+      });
+      episodeButtons.append(button);
+    });
+
+    episodeGroup.append(episodeHeading, episodeButtons);
+    partGroup.append(partHeading, partButtons, availabilityNote);
+    episodeServers.replaceChildren(episodeGroup, partGroup);
+    selectGroup(activeEpisodeGroup);
+    return;
+  }
+
   const group = document.createElement("section");
   group.className = "episode-server-group";
   const heading = document.createElement("h2");
@@ -261,6 +350,7 @@ function renderEpisodeButtons(movie) {
     button.className = "episode-button";
     const partNumber = episode.label.match(/Phần\s+(\d+\/\d+)/)?.[1];
     button.textContent = partNumber || String(index + 1).padStart(2, "0");
+    button.dataset.episodeIndex = String(index);
     button.title = episode.label;
     button.setAttribute("aria-label", episode.label);
     button.addEventListener("click", () => playEpisode(index));
@@ -273,6 +363,7 @@ function renderEpisodeButtons(movie) {
 function showWatch(movie) {
   activeMovie = movie;
   activeEpisode = 0;
+  activeEpisodeGroup = 0;
   document.querySelector("#home").hidden = true;
   document.querySelector("#detail-view").hidden = true;
   document.querySelector("#watch-view").hidden = false;
@@ -341,9 +432,10 @@ function playEpisode(index) {
   document.querySelector("#watch-breadcrumb-episode").textContent =
     episode.label;
   document.querySelector("#current-episode").textContent = episode.label;
-  episodeServers.querySelectorAll(".episode-button").forEach((button, buttonIndex) => {
-    button.classList.toggle("active", buttonIndex === index);
-    button.setAttribute("aria-pressed", String(buttonIndex === index));
+  episodeServers.querySelectorAll(".episode-part-button, .episode-server-group > .episode-buttons > .episode-button").forEach(button => {
+    const isActive = Number(button.dataset.episodeIndex) === index;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
   });
 }
 
