@@ -234,6 +234,7 @@ h2 { font-size: 24px; }
 .movie-cover::before { background: linear-gradient(0deg,#101014d9,transparent 65%); }
 .movie-cover::after { top: 18px; right: 15%; width: 56%; height: 76%; border-radius: 48% 48% 7% 7%; }
 .movie-cover .poster-orbit { top: 32px; right: 4%; width: 75%; height: auto; aspect-ratio: 1; }
+.movie-cover::after, .movie-cover .poster-orbit { display: none; }
 .movie-cover .poster-copy { position: absolute; right: 12px; bottom: 13px; left: 12px; max-width: calc(100% - 24px); }
 .movie-cover .poster-copy small { font-size: 8px; }
 .movie-cover .poster-copy b { font-family: Inter,"Segoe UI",Arial,sans-serif; font-size: 17px; }

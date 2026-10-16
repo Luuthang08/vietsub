@@ -240,7 +240,6 @@ movies.forEach((movie, index) => {
 document.querySelector(".hero-prev").addEventListener("click", () => setFeatured(activeFeatured - 1));
 document.querySelector(".hero-next").addEventListener("click", () => setFeatured(activeFeatured + 1));
 document.querySelector("[data-featured-watch]").addEventListener("click", () => openMovie(movies[activeFeatured]));
-document.querySelector("#detail-watch").addEventListener("click", () => activeMovie && (window.location.hash = `watch/${activeMovie.id}`));
 document.querySelector("#detail-play").addEventListener("click", () => activeMovie && (window.location.hash = `watch/${activeMovie.id}`));
 document.querySelector("#back-detail-button").addEventListener("click", () => activeMovie && (window.location.hash = `detail/${activeMovie.id}`));
 episodeSelect.addEventListener("change", () => playEpisode(Number(episodeSelect.value)));
