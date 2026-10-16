@@ -259,7 +259,8 @@ function renderEpisodeButtons(movie) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "episode-button";
-    button.textContent = String(index + 1).padStart(2, "0");
+    const partNumber = episode.label.match(/Phần\s+(\d+\/\d+)/)?.[1];
+    button.textContent = partNumber || String(index + 1).padStart(2, "0");
     button.title = episode.label;
     button.setAttribute("aria-label", episode.label);
     button.addEventListener("click", () => playEpisode(index));
@@ -329,6 +330,8 @@ function playEpisode(index) {
   const playerParams = new URLSearchParams({
     autoplay: "1",
     rel: "0",
+    cc_load_policy: "1",
+    cc_lang_pref: "vi",
     origin: siteOrigin,
     widget_referrer: siteOrigin
   });
