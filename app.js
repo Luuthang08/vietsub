@@ -1,5 +1,27 @@
 const movies = [
   {
+    id: 6,
+    title: "Yêu Hết Lòng Chàng Fanboy",
+    english: "Mr. Fanboy",
+    country: "Thái Lan",
+    year: 2026,
+    episodeLabel: "Tập 1 · 4 phần",
+    runtime: "45 phút / tập",
+    genre: "Tình cảm · Lãng mạn",
+    description:
+      "Wan là fanboy của Nine. Sau một lần hiểu lầm với Third, Wan bất ngờ bước vào cùng dự án phim với họ và những cảm xúc giữa cả ba dần thay đổi. Tập 1 gồm 4 phần từ kênh YouTube Mandee Channel chính thức.",
+    episodes: [
+      { label: "Tập 1 · Phần 1/4", videoId: "6BcQBdLdB1I" },
+      { label: "Tập 1 · Phần 2/4", videoId: "Ba2V_QcuBNc" },
+      { label: "Tập 1 · Phần 3/4", videoId: "aBlXbbPSGx0" },
+      { label: "Tập 1 · Phần 4/4", videoId: "gu1TZH5lW_I" }
+    ],
+    episodeGroups: [{ label: "Tập 1", startIndex: 0, partCount: 4 }],
+    updated: 0,
+    colors: ["#8b4b4b", "#392c43"],
+    tag: "TẬP ĐẦU"
+  },
+  {
     id: 1,
     title: "Love in the Air",
     english: "บรรยากาศรัก",
